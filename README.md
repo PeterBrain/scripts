@@ -1,5 +1,5 @@
 # Scripts
-This is a collection of all my shell scripts
+This is a collection of all my shell scripts.
 
 &nbsp;
 
@@ -14,19 +14,16 @@ Define, how the file should be interpreted.
 &nbsp;
 
 ## Programs
-
+Description of all Programs.
 &nbsp;
 
-Here are all the code,
 ### run_evonHome
-This is for my current project, which acts as a degree dissertation
+This is for my current project, which acts as a degree dissertation.
 
 ```
-#!/bin/sh
 cd /Users/PeterBrain/Desktop/evonHOME
 node System/plc.js
 ```
-
 &nbsp;
 
 ### ShowHiddenFiles
@@ -34,29 +31,24 @@ I’m too tired of typing this line into the command-line-tool, so I’ve done t
 Explanation: Make files, which are usually invisible to us, visible.
 
 ```
-#!/bin/sh
 defaults write com.apple.finder AppleShowAllFiles YES
 killall Finder
 ```
-
 &nbsp;
 
 ### HideHiddenFiles
 To reverse the effect of "ShowHiddenFiles". Better: Make actual invisible files invisible.
 
 ```
-#!/bin/sh
 defaults write com.apple.finder AppleShowAllFiles NO
 killall Finder
 ```
-
 &nbsp;
 
 ### mount smb Network Drive
 Aliases of Network Drives do the same thing, but need more space on desktop and it’s much cooler to do it that way.
 
 ```
-#!/bin/sh
 SSID=$(/System/Library/PrivateFrameworks/Apple80211.framework/Versions/Current/Resources/airport -I | awk -F': ' '/ SSID/ {print $2}')
 
 drives="Public www$ Peter$"
