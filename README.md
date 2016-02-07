@@ -1,6 +1,13 @@
 # Scripts
 This is a collection of all my shell scripts
 
+## Introduction
+### Executable
+Define, how the file should be interpreted.
+
+    #!/bin/sh
+    #!/bin/bash
+
 ### run_evonHome
 
     #!/bin/sh
