@@ -1,7 +1,6 @@
 # Scripts
 This is a collection of all my shell scripts
 
-
 &nbsp;
 ## Introduction
 ### Executable
