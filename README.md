@@ -1,21 +1,22 @@
 # Scripts
-This is a collection of all my shell scripts
+This is a collection of all my shell scripts  
 
 ## Introduction
 ### Executable
-Define, how the file should be interpreted.
+Define, how the file should `be` interpreted.
 
     #!/bin/sh
     #!/bin/bash
 
 
 ## Programs
+Here are all the code,
 ### run_evonHome
-
-    #!/bin/sh
-    cd /Users/PeterBrain/Desktop/evonHOME
-    node System/plc.js
-
+```
+#!/bin/sh
+cd /Users/PeterBrain/Desktop/evonHOME
+node System/plc.js
+```
 
 ### ShowHiddenFiles
 
