@@ -2,16 +2,16 @@
 This is a collection of all my shell scripts
 
 &nbsp;
+
 ## Introduction
 ### Executable
 Define, how the file should be interpreted.
 
-
-&nbsp;
 ```
 #!/bin/sh
 #!/bin/bash
 ```
+&nbsp;
 
 ## Programs
 Here are all the code,
@@ -23,6 +23,8 @@ cd /Users/PeterBrain/Desktop/evonHOME
 node System/plc.js
 ```
 
+&nbsp;
+
 ### ShowHiddenFiles
 
 ```
@@ -31,6 +33,8 @@ defaults write com.apple.finder AppleShowAllFiles YES
 killall Finder
 ```
 
+&nbsp;
+
 ### HideHiddenFiles
 
 ```
@@ -38,6 +42,8 @@ killall Finder
 defaults write com.apple.finder AppleShowAllFiles NO
 killall Finder
 ```
+
+&nbsp;
 
 ### mount smb Network Drive
 
