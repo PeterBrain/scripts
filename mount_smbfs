@@ -1,4 +1,0 @@
-
-# mount_smbfs //WORKGROUP;10.0.0.10/public /Volumes/public_mount
-mount -t smbfs smb://guest@SVR-01/Public /tmp/mnt
-#admin:password WORKGROUP;

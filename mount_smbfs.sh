@@ -1,4 +1,5 @@
-# Mount shared folders via smb
+#!/bin/sh
+#Mount shared folders via smb
 #admin:password WORKGROUP;
 #mkdir /tmp/share/www
 #mount -t smbfs smb://guest@SVR-01/www$ /tmp/share/www
