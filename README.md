@@ -14,8 +14,12 @@ Define, how the file should be interpreted.
 &nbsp;
 
 ## Programs
+
+&nbsp;
+
 Here are all the code,
 ### run_evonHome
+This is for my current project, which acts as a degree dissertation
 
 ```
 #!/bin/sh
@@ -26,6 +30,8 @@ node System/plc.js
 &nbsp;
 
 ### ShowHiddenFiles
+I’m too tired of typing this line into the command-line-tool, so I’ve done this.
+Explanation: Make files, which are usually invisible to us, visible.
 
 ```
 #!/bin/sh
@@ -36,6 +42,7 @@ killall Finder
 &nbsp;
 
 ### HideHiddenFiles
+To reverse the effect of "ShowHiddenFiles". Better: Make actual invisible files invisible.
 
 ```
 #!/bin/sh
@@ -46,6 +53,7 @@ killall Finder
 &nbsp;
 
 ### mount smb Network Drive
+Aliases of Network Drives do the same thing, but need more space on desktop and it’s much cooler to do it that way.
 
 ```
 #!/bin/sh
