@@ -85,7 +85,7 @@ defaults write com.apple.finder AppleShowAllFiles NO
 ```
 &nbsp;
 
-### mount smb Network Drive
+### mount/unmount smb Network Drive
 Aliases of Network Drives do the same thing, but need more space on desktop and it’s much cooler to do it that way.
 
 This part of the code retrieves the SSID of the connected wireless network.
@@ -93,21 +93,23 @@ This part of the code retrieves the SSID of the connected wireless network.
 SSID=$(/System/Library/PrivateFrameworks/Apple80211.framework/Versions/Current/Resources/airport -I | awk -F': ' '/ SSID/ {print $2}')
 ```
 
+Exploding strings is often very important and useful (IFS for later research):
 ```
-drives="Public www$ Peter$"
-for drive in $drives
-do
+array=(${variable//delimiter/})
+```
 
-if [ "$SSID" = "Home" ]
-then
-drive_mk=(${drive//$/})
-mkdir /tmp/share/${drive_mk[0]}
-mount -t smbfs smb://guest@SVR-01/$drive /tmp/share/${drive_mk[0]}
+How to use the created array
+```
+${array[0]}
+```
 
-echo "Connected to Network Drive: $drive"
-else
-echo "Connected with the wrong Network: $SSID"
-fi
+Mount a smb network drive
+```
+mount -t smbfs smb://user@server/share /path/to/temporary/shared_folder
+```
+I recommend using this path: `/tmp/share/name_of_share`
 
-done
+Unmount a smb network drive
+```
+umount -t smbfs smb://user@server/share /path/to/temporary/shared_folder
 ```
