@@ -92,6 +92,7 @@ This part of the code retrieves the SSID of the connected wireless network.
 ```
 SSID=$(/System/Library/PrivateFrameworks/Apple80211.framework/Versions/Current/Resources/airport -I | awk -F': ' '/ SSID/ {print $2}')
 ```
+&nbsp;
 
 Exploding strings is often very important and useful (IFS for later research): `array=(${variable//delimiter/})`
 
