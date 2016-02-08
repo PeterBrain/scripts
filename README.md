@@ -93,15 +93,9 @@ This part of the code retrieves the SSID of the connected wireless network.
 SSID=$(/System/Library/PrivateFrameworks/Apple80211.framework/Versions/Current/Resources/airport -I | awk -F': ' '/ SSID/ {print $2}')
 ```
 
-Exploding strings is often very important and useful (IFS for later research):
-```
-array=(${variable//delimiter/})
-```
+Exploding strings is often very important and useful (IFS for later research): `array=(${variable//delimiter/})`
 
-How to use the created array
-```
-${array[0]}
-```
+How to use the created array: `${array[0]}`
 
 Mount a smb network drive
 ```
