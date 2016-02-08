@@ -1,6 +1,4 @@
 #!/bin/sh
-#Mount shared folders via smb
-#admin:password
 
 SSID=$(/System/Library/PrivateFrameworks/Apple80211.framework/Versions/Current/Resources/airport -I | awk -F': ' '/ SSID/ {print $2}')
 

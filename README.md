@@ -20,6 +20,18 @@ killall Finder
 ```
 &nbsp;
 
+If- Else Statements are done like this.
+
+```
+if [condition]
+then
+(… do something here)
+else
+(… do something here)
+fi
+```
+&nbsp;
+
 ## Programs
 Description of all Programs.
 &nbsp;
@@ -53,9 +65,13 @@ defaults write com.apple.finder AppleShowAllFiles NO
 ### mount smb Network Drive
 Aliases of Network Drives do the same thing, but need more space on desktop and it’s much cooler to do it that way.
 
+This part of the code retrieves the SSID of the currently connected wireless network.
 ```
 SSID=$(/System/Library/PrivateFrameworks/Apple80211.framework/Versions/Current/Resources/airport -I | awk -F': ' '/ SSID/ {print $2}')
+```
 
+
+```
 drives="Public www$ Peter$"
 for drive in $drives
 do
