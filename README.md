@@ -13,6 +13,13 @@ Define, how the file should be interpreted.
 ```
 &nbsp;
 
+To restart Finder, in order to activate new settings use the following:
+
+```
+killall Finder
+```
+&nbsp;
+
 ## Programs
 Description of all Programs.
 &nbsp;
@@ -28,20 +35,18 @@ node System/plc.js
 
 ### ShowHiddenFiles
 I’m too tired of typing this line into the command-line-tool, so I’ve done this.
-Explanation: Make files, which are usually invisible to us, visible.
+Explanation: Make files, which are usually invisible to us, visible. Restart of Finder is necessary.
 
 ```
 defaults write com.apple.finder AppleShowAllFiles YES
-killall Finder
 ```
 &nbsp;
 
 ### HideHiddenFiles
-To reverse the effect of "ShowHiddenFiles". Better: Make actual invisible files invisible.
+To reverse the effect of "ShowHiddenFiles". Better: Make actual invisible files invisible. Restart of Finder is necessary.
 
 ```
 defaults write com.apple.finder AppleShowAllFiles NO
-killall Finder
 ```
 &nbsp;
 
