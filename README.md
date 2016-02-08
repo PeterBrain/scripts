@@ -60,6 +60,7 @@ Stress test your MAC:
 yes
 ```
 To cancel press __Ctrl-C__
+
 &nbsp;
 &nbsp;
 
