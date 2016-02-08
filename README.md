@@ -3,7 +3,7 @@ This is a collection of all my shell scripts.
 
 &nbsp;
 
-## Introduction
+# Introduction
 ### Executable
 Define, how the file should be interpreted.
 
@@ -55,7 +55,14 @@ rmdir path/to/folder/name_of_folder
 ```
 &nbsp;
 
-## Programs
+Stress test your MAC:
+```
+yes
+```
+To cancel press __Ctrl-C__
+&nbsp;
+
+# Programs
 Description of all Programs.
 &nbsp;
 
