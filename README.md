@@ -107,7 +107,7 @@ mount -t smbfs smb://user@server/share /path/to/temporary/shared_folder
 
 Unmount a smb network drive:
 ```
-umount -t smbfs smb://user@server/share /path/to/temporary/shared_folder
+umount -t smbfs /path/to/temporary/shared_folder
 ```
 &nbsp;
 
