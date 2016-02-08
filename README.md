@@ -61,7 +61,6 @@ Description of all Programs.
 
 ### run_evonHome
 This is for my current project, which acts as a degree dissertation.
-
 ```
 cd /Users/PeterBrain/Desktop/evonHOME
 node System/plc.js
@@ -71,7 +70,6 @@ node System/plc.js
 ### ShowHiddenFiles
 I’m too tired of typing this line into the command-line-tool, so I’ve done this.
 Explanation: Make files, which are usually invisible to us, visible. Restart of Finder is necessary.
-
 ```
 defaults write com.apple.finder AppleShowAllFiles YES
 ```
@@ -79,9 +77,15 @@ defaults write com.apple.finder AppleShowAllFiles YES
 
 ### HideHiddenFiles
 To reverse the effect of "ShowHiddenFiles". Better: Make actual invisible files invisible. Restart of Finder is necessary.
-
 ```
 defaults write com.apple.finder AppleShowAllFiles NO
+```
+&nbsp;
+
+### ToggleHiddenFiles
+To toggle it is necessary to know the current setting.
+```
+status=`defaults read com.apple.finder AppleShowAllFiles`
 ```
 &nbsp;
 
