@@ -100,10 +100,6 @@ How to use the created array: `${array[0]}`
 
 &nbsp;
 
-I recommend using this path: `/tmp/share/name_of_share`
-
-&nbsp;
-
 Mount a smb network drive:
 ```
 mount -t smbfs smb://user@server/share /path/to/temporary/shared_folder
@@ -113,3 +109,6 @@ Unmount a smb network drive:
 ```
 umount -t smbfs smb://user@server/share /path/to/temporary/shared_folder
 ```
+&nbsp;
+
+I recommend using this path: `/tmp/share/name_of_share`
