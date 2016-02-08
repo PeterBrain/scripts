@@ -96,14 +96,16 @@ SSID=$(/System/Library/PrivateFrameworks/Apple80211.framework/Versions/Current/R
 Exploding strings is often very important and useful (IFS for later research): `array=(${variable//delimiter/})`
 
 How to use the created array: `${array[0]}`
+&nbsp;
 
-Mount a smb network drive
+Mount a smb network drive:
 ```
 mount -t smbfs smb://user@server/share /path/to/temporary/shared_folder
 ```
 I recommend using this path: `/tmp/share/name_of_share`
+&nbsp;
 
-Unmount a smb network drive
+Unmount a smb network drive:
 ```
 umount -t smbfs smb://user@server/share /path/to/temporary/shared_folder
 ```
