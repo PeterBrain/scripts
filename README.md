@@ -97,6 +97,7 @@ SSID=$(/System/Library/PrivateFrameworks/Apple80211.framework/Versions/Current/R
 Exploding strings is often very important and useful (IFS for later research): `array=(${variable//delimiter/})`
 
 How to use the created array: `${array[0]}`
+
 &nbsp;
 
 Mount a smb network drive:
