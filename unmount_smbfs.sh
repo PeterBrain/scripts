@@ -1,5 +1,4 @@
 #!/bin/sh
-#smb://guest@SVR-01/$drive
 
 drives="Public www$ Peter$"
 
