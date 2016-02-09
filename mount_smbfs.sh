@@ -52,4 +52,4 @@ else
     echo "\033[0;31m"No ethernet cable connected"\033[0m"
 fi
 
-read -p "$*"
+read -p "Press any key to close this terminal"
