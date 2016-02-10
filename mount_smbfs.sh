@@ -7,6 +7,8 @@ en1=`ipconfig getifaddr en1`
 
 if [ -n "$en1" ]; then
 
+echo "\033[0;32m"Connected with WLAN-Network"\033[0m"
+
 SSID=$(/System/Library/PrivateFrameworks/Apple80211.framework/Versions/Current/Resources/airport -I | awk -F': ' '/ SSID/ {print $2}')
 
 drives="Public www$ Peter$"
@@ -47,7 +49,27 @@ fi
 fi
 
 if [ -n "$en0" ]; then
-    echo "\033[0;32m"Connected with LAN-Network"\033[0m"
+
+echo "\033[0;32m"Connected with LAN-Network"\033[0m"
+
+drives_school="classes"
+mkdir /tmp/share
+
+host = "dv-srvr-fs"
+user = "loecker5227"
+password = read
+
+
+for drive in $drives_school
+do
+	drive_mk=(${drive//$/})
+	mkdir /tmp/share/${drive_mk[0]}
+	mount -t smbfs smb://$user:$password@$host/$drive /tmp/share/${drive_mk[0]}
+	
+	echo "\033[0;32m"Connected to Network Drive: $drive"\033[0m"
+
+done
+
 else
     echo "\033[0;31m"No ethernet cable connected"\033[0m"
 fi
