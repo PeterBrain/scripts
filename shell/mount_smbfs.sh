@@ -11,8 +11,8 @@ echo "\033[0;32m"Connected with WLAN-Network"\033[0m"
 
 SSID=$(/System/Library/PrivateFrameworks/Apple80211.framework/Versions/Current/Resources/airport -I | awk -F': ' '/ SSID/ {print $2}')
 
-drives="Public www$ Peter$"
-drives_all="Public www$ Peter$ Bilder Movies Games"
+drives="Public www$ Peter$ bin"
+drives_all="Public www$ Peter$ bin Bilder Movies Games"
 drives_school="classes ITDaten"
 
 mkdir /tmp/share
@@ -55,9 +55,9 @@ echo "\033[0;32m"Connected with LAN-Network"\033[0m"
 drives_school="classes"
 mkdir /tmp/share
 
-host = "dv-srvr-fs"
-user = "loecker5227"
-password = read
+host="dv-srvr-fs"
+user="loecker5227"
+password=""
 
 
 for drive in $drives_school

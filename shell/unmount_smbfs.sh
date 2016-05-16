@@ -1,6 +1,6 @@
 #!/bin/sh
 
-drives="Public www$ Peter$"
+drives="Public www$ Peter$ bin”
 
 #for drive in $drives
 #do
