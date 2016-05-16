@@ -36,7 +36,7 @@ timeout /t 3 /nobreak
 @ECHO.
 @ECHO Verbindung herstellen...
 @ECHO.
-net use A: \\10.0.0.10\owncloud$ /persistent:no /user:%benutzer% %passwort% >nul
+net use A: \\10.0.0.10\peterbrain$ /persistent:no /user:%benutzer% %passwort% >nul
 @ECHO.
 timeout /t 1 >nul
 cls
