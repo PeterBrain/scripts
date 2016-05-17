@@ -2,7 +2,7 @@
 
 echo "Disable startup sound"
 
-sudo nvram SystemAudioVolume=%80﻿
-#01
+sudo nvram SystemAudioVolume=%01
+#80
 
 #sudo nvram -d SystemAudioVolume
