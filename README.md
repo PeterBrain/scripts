@@ -125,6 +125,7 @@ umount -t smbfs /path/to/temporary/shared_folder
 
 I recommend using this path: `/tmp/share/name_of_share`
 &nbsp;
+&nbsp;
 
 ### Turn internal keyboard on/off
 To turn the keyboard on or off you have to unload or load a .kext file.
@@ -149,7 +150,7 @@ sudo kextunload /System/Library/Extensions/AppleUSBTopCase.kext/Contents/PlugIns
 ### Create a blank icon on dock
 This feature is good to separate applications from each other.
 
-This is all the magic
+This is all the magic:
 ```
 defaults write com.apple.dock persistent-apps -array-add '{tile-data={}; tile-type="spacer-tile";}'
 
