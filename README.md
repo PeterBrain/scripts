@@ -1,5 +1,5 @@
 # Scripts
-This is a collection of all my shell scripts.
+This is a collection of all my shell and batch scripts.
 
 &nbsp;
 
