@@ -140,6 +140,7 @@ diskutil unmount [DiskIdentifier|DeviceNode]
 ```
 When using the USB Drives name, you have to quote it.
 DeviceNode expample: /dev/disk1s1
+
 &nbsp;
 
 ### Turn internal keyboard on/off
