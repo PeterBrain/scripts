@@ -131,6 +131,17 @@ I recommend using this path: `/tmp/share/name_of_share`
 
 &nbsp;
 
+### mount/unmount USB Drive
+Diskutil is the one keyword.
+```
+diskutil list
+diskutil mount [DiskIdentifier|DeviceNode]
+diskutil unmount [DiskIdentifier|DeviceNode]
+```
+When using the USB Drives name, you have to quote it.
+DeviceNode expample: /dev/disk1s1
+&nbsp;
+
 ### Turn internal keyboard on/off
 To turn the keyboard on or off you have to unload or load a .kext file.
 
