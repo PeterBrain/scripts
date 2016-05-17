@@ -122,7 +122,6 @@ Unmount a smb network drive:
 ```
 umount -t smbfs /path/to/temporary/shared_folder
 ```
-&nbsp;
 
 I recommend using this path: `/tmp/share/name_of_share`
 &nbsp;
@@ -147,7 +146,7 @@ sudo kextunload /System/Library/Extensions/AppleUSBTopCase.kext/Contents/PlugIns
 ```
 &nbsp;
 
-### create a blank icon on dock
+### Create a blank icon on dock
 This feature is good to separate applications from each other.
 
 This is all the magic
