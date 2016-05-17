@@ -63,7 +63,7 @@ To cancel press __Ctrl-C__
 
 &nbsp;
 
-This makes the file executable on doubleclick
+This makes the file executable on doubleclick:
 ```
 chmod a+x file.sh
 ```
@@ -128,6 +128,7 @@ Unmount a smb network drive:
 umount -t smbfs /path/to/temporary/shared_folder
 ```
 I recommend using this path: `/tmp/share/name_of_share`
+
 &nbsp;
 
 ### Turn internal keyboard on/off
