@@ -124,8 +124,9 @@ umount -t smbfs /path/to/temporary/shared_folder
 ```
 
 I recommend using this path: `/tmp/share/name_of_share`
-&nbsp;
 
+&nbsp;
+&nbsp;
 
 ### Turn internal keyboard on/off
 To turn the keyboard on or off you have to unload or load a .kext file.
