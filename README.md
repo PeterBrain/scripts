@@ -125,3 +125,23 @@ umount -t smbfs /path/to/temporary/shared_folder
 &nbsp;
 
 I recommend using this path: `/tmp/share/name_of_share`
+
+### Turn internal keyboard on/off
+To turn the keyboard on or off you have to unload or load a .kext file.
+
+This one disables it:
+```
+kextunload -b com.apple.driver.AppleUSBTCKeyboard
+```
+
+And this one enables it:
+```
+kextload -b com.apple.driver.AppleUSBTCKeyboard
+```
+!Attention! Maybe you have to use an external Keyboard to re-enable it.
+
+Long Version with real Paths:
+```
+sudo kextunload /System/Library/Extensions/AppleUSBTopCase.kext/Contents/PlugIns/AppleUSBTCKeyboard.kext/ || sudo kextload /System/Library/Extensions/AppleUSBTopCase.kext/Contents/PlugIns/AppleUSBTCKeyboard.kext/
+```
+
