@@ -62,6 +62,11 @@ yes
 To cancel press __Ctrl-C__
 
 &nbsp;
+
+This makes the file executable on doubleclick
+'''
+chmod a+x file.sh
+'''
 &nbsp;
 
 ## Programs
