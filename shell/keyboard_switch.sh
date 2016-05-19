@@ -1,7 +1,9 @@
 #!/bin/sh
 
+echo
 echo "To turn your internal keyboard back on, simply run the script again"
 echo "you may have to use an external keyboard for this"
+echo
 
 echo "To proceed, press enter"
 read
