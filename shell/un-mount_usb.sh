@@ -9,7 +9,7 @@ read var
 diskutil list
 
 echo
-echo "Type in the name of the drive you want to unmount"
+echo "Type in the name of the drive you want to mount/unmount"
 read usb
 echo
 
