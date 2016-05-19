@@ -1,6 +1,9 @@
 #!/bin/sh
+#exec > /dev/null 2>&1
 
+echo
 echo "MacBook preferred settings"
+echo
 
 #————
 
@@ -9,8 +12,8 @@ echo "MacBook preferred settings"
 
 #————
 
-#disable crashreport popup
-#defaults write com.apple.CrashReporter UseUNC 1
+#disable crashreport popup and use notification instead
+defaults write com.apple.CrashReporter UseUNC 1
 
 #revert
 #defaults write com.apple.CrashReporter UseUNC 0
@@ -32,21 +35,21 @@ echo "MacBook preferred settings"
 #————
 
 #AppStore show debug menu
-#defaults write com.apple.appstore ShowDebugMenu -bool true
+defaults write com.apple.appstore ShowDebugMenu -bool true
 
 #revert
 #defaults delete com.apple.appstore ShowDebugMenu
 
 #Debug menu
-#defaults write com.apple.addressbook ABShowDebugMenu -bool true
-#defaults write com.apple.iCal IncludeDebugMenu -bool true
+defaults write com.apple.addressbook ABShowDebugMenu -bool true
+defaults write com.apple.iCal IncludeDebugMenu -bool true
 
-#defaults write com.apple.DiskUtility DUDebugMenuEnabled -bool true
-#defaults write com.apple.DiskUtility advanced-image-options -bool true
+defaults write com.apple.DiskUtility DUDebugMenuEnabled -bool true
+defaults write com.apple.DiskUtility advanced-image-options -bool true
 
 #————
 
-
+#does not work anymore
 #sudo defaults write /Library/Preferences/com.apple.loginwindow AdminHostInfo HostName
 #sudo defaults delete /Library/Preferences/com.apple.loginwindow AdminHostInfo HostName
 
