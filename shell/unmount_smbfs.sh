@@ -1,6 +1,6 @@
 #!/bin/sh
 
-drives="Public www$ Peter$ bin”
+drives="Public www$ Peter$ bin"
 
 #for drive in $drives
 #do
@@ -15,4 +15,4 @@ umount -A -t smbfs
 
 rmdir /tmp/share
 
-read -p "Press any key to close this terminal"
+read -p "Press enter to close this terminal"
