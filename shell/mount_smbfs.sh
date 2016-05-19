@@ -7,7 +7,9 @@ en1=`ipconfig getifaddr en1`
 
 if [ -n "$en1" ]; then
 
+echo
 echo "\033[0;32m"Connected with WLAN-Network"\033[0m"
+echo
 
 SSID=$(/System/Library/PrivateFrameworks/Apple80211.framework/Versions/Current/Resources/airport -I | awk -F': ' '/ SSID/ {print $2}')
 
@@ -50,7 +52,9 @@ fi
 
 if [ -n "$en0" ]; then
 
+echo
 echo "\033[0;32m"Connected with LAN-Network"\033[0m"
+echo
 
 drives_school="classes"
 mkdir /tmp/share
@@ -71,7 +75,9 @@ do
 done
 
 else
+    echo
     echo "\033[0;31m"No ethernet cable connected"\033[0m"
+    echo
 fi
 
-read -p "Press any key to close this terminal"
+#read -p "Press enter to close this terminal"
