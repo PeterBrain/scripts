@@ -200,7 +200,7 @@ function mouse_track_speed() {
 
 function keyboard_illumination() {
     cecho "Turn off keyboard illumination when computer is not used for 5 minutes" $green
-    #defaults write com.apple.BezelServices kDimTime -int 300 #5*60sec
+    defaults write com.apple.BezelServices kDimTime -int 300 #5*60sec
 }
 
 function auto_display_brightness() {
@@ -209,7 +209,7 @@ function auto_display_brightness() {
 }
 
 function auto_keyboard_brightness() {
-    cecho "Disable keyboard from automatically adjusting backlight brightness in low light" &green
+    cecho "Disable keyboard from automatically adjusting backlight brightness in low light" $green
     #sudo defaults write /Library/Preferences/com.apple.iokit.AmbientLightSensor "Automatic Keyboard Enabled" -bool false
 }
 
