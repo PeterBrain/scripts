@@ -54,16 +54,17 @@ set +e
 ##########################
 
 function system_name() {
-    cecho "Would you like to set a computer name (System Preferences -> Sharing)?  (y/n)" $red
-    read -r response
-    if [[ $response =~ ^([yY][eE][sS]|[yY])$ ]]; then
-    cecho "What would you like it to be?" $red
-    read COMPUTER_NAME
-    sudo scutil --set ComputerName $COMPUTER_NAME
-    sudo scutil --set HostName $COMPUTER_NAME
-    sudo scutil --set LocalHostName $COMPUTER_NAME
-    sudo defaults write /Library/Preferences/SystemConfiguration/com.apple.smb.server NetBIOSName -string $COMPUTER_NAME
-    fi
+    cecho "Would you like to set a computer name (System Preferences -> Sharing)?  (y/n)" $magenta
+    function computername() {
+        cecho "What would you like it to be?" $magenta
+        read COMPUTER_NAME
+        sudo scutil --set ComputerName $COMPUTER_NAME
+        sudo scutil --set HostName $COMPUTER_NAME
+        sudo scutil --set LocalHostName $COMPUTER_NAME
+        sudo defaults write /Library/Preferences/SystemConfiguration/com.apple.smb.server NetBIOSName -string $COMPUTER_NAME
+    }
+    response computername
+    echo
 }
 
 function debug_menu() {
@@ -91,8 +92,10 @@ function expand_save() {
 }
 
 function save_not_icloud() {
-    cecho "Save to disk, rather than iCloud, by default? (y/n)" $red
-    response defaults write NSGlobalDomain NSDocumentSaveNewDocumentsToCloud -bool false
+    echo
+    cecho "Save to disk, rather than iCloud, by default? (y/n)" $magenta
+    response "defaults write NSGlobalDomain NSDocumentSaveNewDocumentsToCloud -bool false"
+    echo
 }
 
 function printer_quit() {
@@ -101,7 +104,7 @@ function printer_quit() {
 }
 
 function login_window_info() {
-    cecho "Reveal IP address, hostname, OS version, etc. when clicking the clock in the login window" $green
+    cecho "Reveal IP address, hostname, OS version when clicking the clock in the login window" $green
     sudo defaults write /Library/Preferences/com.apple.loginwindow AdminHostInfo HostName
     #sudo defaults delete /Library/Preferences/com.apple.loginwindow AdminHostInfo HostName
 }
@@ -123,34 +126,35 @@ function crashreport_popup() {
 }
 
 function hide_spotlight_icon() {
-    cecho "Hide the Spotlight icon?" $green
+    cecho "Hide the Spotlight icon" $yellow
     #sudo chmod 600 /System/Library/CoreServices/Search.bundle/Contents/MacOS/Search
 }
 
 function spotlight_indexing() {
-    cecho "Disable Spotlight indexing for any volume that gets mounted and has not yet been indexed before" $green
+    cecho "Disable Spotlight indexing for any volume that gets mounted and has not yet been indexed before" $yellow
     #echo 'Use `sudo mdutil -i off "/Volumes/foo"` to stop indexing any volume.'
     #sudo defaults write /.Spotlight-V100/VolumeConfiguration Exclusions -array "/Volumes"
 }
 
 function check_update_daily() {
-    cecho "Check for software updates daily, not just once per week" $green
+    cecho "Check for software updates daily, not just once per week" $yellow
     #defaults write com.apple.SoftwareUpdate ScheduleFrequency -int 1
 }
 
 function remove_duplicates_open() {
-    cecho "Removing duplicates in the 'Open With' menu" $green
+    cecho "Removing duplicates in the 'Open With' menu" $yellow
     #/System/Library/Frameworks/CoreServices.framework/Frameworks/LaunchServices.framework/Support/lsregister -kill -r -domain local -domain system -domain user
 }
 
 function smart_quotes() {
-    cecho "Disable smart quotes and samrt dashes" $green
+    cecho "Disable smart quotes and samrt dashes" $yellow
     #defaults write NSGlobalDomain NSAutomaticQuoteSubstitutionEnabled -bool false
     #defaults write NSGlobalDomain NSAutomaticDashSubstitutionEnabled -bool false
 }
 
 function launchpad_row_column() {
-    cecho "Edit amount of Launchpad rows and columns (default 5rows 7columns)" $green
+    cecho "Edit amount of Launchpad rows and columns" $yellow
+    cecho "(default 5rows 7columns)" $black
     #defaults write com.apple.dock springboard-columns -int X
     #defaults write com.apple.dock springboard-rows -int X
     #defaults write com.apple.dock ResetLaunchPad -bool TRUE
@@ -161,6 +165,7 @@ function launchpad_row_column() {
     #defaults delete com.apple.dock springboard-columns
     #defaults write com.apple.dock ResetLaunchPad -bool TRUE
     #killall Dock
+    echo
 }
 
 ##########################
@@ -169,31 +174,33 @@ function launchpad_row_column() {
 
 function increase_sound_qual() {
     cecho "Increasing sound quality for Bluetooth headphones/headsets" $green
-    #defaults write com.apple.BluetoothAudioAgent "Apple Bitpool Min (editable)" -int 40
+    defaults write com.apple.BluetoothAudioAgent "Apple Bitpool Min (editable)" -int 40
 }
 
 function keyboard_ui_mode() {
-    cecho "Enabling full keyboard access for all controls (enable Tab in modal dialogs, menu windows, etc.)" $green
+    cecho "Enabling full keyboard access for all controls" $yellow
+    cecho "(enable Tab in modal dialogs, menu windows, etc.)" $black
     #defaults write NSGlobalDomain AppleKeyboardUIMode -int 3
+    echo
 }
 
 function press_and_hold() {
-    cecho "Disabling press-and-hold for special keys in favor of key repeat" $green
+    cecho "Disabling press-and-hold for special keys in favor of key repeat" $yellow
     #defaults write NSGlobalDomain ApplePressAndHoldEnabled -bool false
 }
 
 function key_repeat() {
-    cecho "Setting a blazingly fast keyboard repeat rate" $green
+    cecho "Setting a blazingly fast keyboard repeat rate" $yellow
     #defaults write NSGlobalDomain KeyRepeat -int 0
 }
 
 function auto_correct() {
-    cecho "Disable auto-correct" $green
+    cecho "Disable auto-correct" $yellow
     #defaults write NSGlobalDomain NSAutomaticSpellingCorrectionEnabled -bool false
 }
 
 function mouse_track_speed() {
-    cecho "Setting trackpad & mouse speed to a reasonable number" $green
+    cecho "Setting trackpad & mouse speed to a reasonable number" $yellow
     #defaults write -g com.apple.trackpad.scaling 2
     #defaults write -g com.apple.mouse.scaling 2.5
 }
@@ -204,12 +211,12 @@ function keyboard_illumination() {
 }
 
 function auto_display_brightness() {
-    cecho "Disable display from automatically adjusting brightness" $green
+    cecho "Disable display from automatically adjusting brightness" $yellow
     #sudo defaults write /Library/Preferences/com.apple.iokit.AmbientLightSensor "Automatic Display Enabled" -bool false
 }
 
 function auto_keyboard_brightness() {
-    cecho "Disable keyboard from automatically adjusting backlight brightness in low light" $green
+    cecho "Disable keyboard from automatically adjusting backlight brightness in low light" $yellow
     #sudo defaults write /Library/Preferences/com.apple.iokit.AmbientLightSensor "Automatic Keyboard Enabled" -bool false
 }
 
@@ -218,9 +225,10 @@ function auto_keyboard_brightness() {
 ##########################
 
 function wipe_dock() {
-    cecho "Wipe all (default) app icons from the Dock" $green
+    cecho "Wipe all (default) app icons from the Dock" $yellow
     cecho "(This is only really useful when setting up a new Mac, or if you don't use the Dock to launch apps.)" $black
     #defaults write com.apple.dock persistent-apps -array
+    echo
 }
 
 function icon_size_dock() {
@@ -229,24 +237,24 @@ function icon_size_dock() {
 }
 
 function hide_menu_bar() {
-    cecho "Hide the menu bar" $green
+    cecho "Hide the menu bar" $yellow
     #defaults write "Apple Global Domain" "_HIHideMenuBar" 1
 }
 
 function autohide_menu_bar() {
-    cecho "Set Dock to auto-hide and remove the auto-hiding delay" $green
+    cecho "Set Dock to auto-hide and remove the auto-hiding delay" $yellow
     #defaults write com.apple.dock autohide -bool true
     #defaults write com.apple.dock autohide-delay -float 0
     #defaults write com.apple.dock autohide-time-modifier -float 0
 }
 
 function focus_ring_anim() {
-    cecho "Disable the over-the-top focus ring animation" $green
+    cecho "Disable the over-the-top focus ring animation" $yellow
     #defaults write NSGlobalDomain NSUseAnimatedFocusRing -bool false
 }
 
 function mission_control_anim() {
-    cecho "Speeding up Mission Control animations and grouping windows by application" $green
+    cecho "Speeding up Mission Control animations and grouping windows by application" $yellow
     #defaults write com.apple.dock expose-animation-duration -float 0.1
     #defaults write com.apple.dock "expose-group-by-app" -bool true
 }
@@ -256,7 +264,7 @@ function mission_control_anim() {
 ##########################
 
 function name_pasteboard() {
-    cecho "Setting email addresses to copy as 'foo@example.com' instead of 'Foo Bar <foo@example.com>' in Mail.app" $green
+    cecho "Setting email addresses to copy as 'foo@example.com' instead of 'Foo Bar <foo@example.com>' in Mail.app" $yellow
     #defaults write com.apple.mail AddressesIncludeNameOnPasteboard -bool false
 }
 
@@ -265,7 +273,7 @@ function name_pasteboard() {
 ##########################
 
 function encode_theme() {
-    cecho "Enabling UTF-8 ONLY in Terminal.app and setting the Pro theme by default" $green
+    cecho "Enabling UTF-8 ONLY in Terminal.app and setting the Pro theme by default" $yellow
     #defaults write com.apple.terminal StringEncodings -array 4
     #defaults write com.apple.Terminal "Default Window Settings" -string "Pro"
     #defaults write com.apple.Terminal "Startup Window Settings" -string "Pro"
@@ -276,14 +284,16 @@ function encode_theme() {
 ##########################
 
 function no_offer_drive() {
-    cecho "Prevent Time Machine from prompting to use new hard drives as backup volume" $green
+    cecho "Prevent Time Machine from prompting to use new hard drives as backup volume" $yellow
     #defaults write com.apple.TimeMachine DoNotOfferNewDisksForBackup -bool true
+    echo
 }
 
 function local_backup() {
-    cecho "Disable local Time Machine backups" $green
+    cecho "Disable local Time Machine backups" $yellow
     cecho "(This can take up a ton of SSD space on <128GB SSDs)" $black
     #hash tmutil &> /dev/null && sudo tmutil disablelocal
+    echo
 }
 
 ##########################
@@ -291,19 +301,21 @@ function local_backup() {
 ##########################
 
 function emoji_substitution() {
-    cecho "Disable automatic emoji substitution in Messages.app" $green
+    cecho "Disable automatic emoji substitution in Messages.app" $yellow
     cecho "(i.e. use plain text smileys)" $black
     #defaults write com.apple.messageshelper.MessageController SOInputLineSettings -dict-add "automaticEmojiSubstitutionEnablediMessage" -bool false
+    echo
 }
 
 function smart_quotes_messages() {
-    cecho "Disable smart quotes in Messages.app" $green
+    cecho "Disable smart quotes in Messages.app" $yellow
     cecho "(it's annoying for messages that contain code)" $black
     #defaults write com.apple.messageshelper.MessageController SOInputLineSettings -dict-add "automaticQuoteSubstitutionEnabled" -bool false
+    echo
 }
 
 function continous_spell_check() {
-    cecho "Disable continuous spell checking in Messages.app" $green
+    cecho "Disable continuous spell checking in Messages.app" $yellow
     #defaults write com.apple.messageshelper.MessageController SOInputLineSettings -dict-add "continuousSpellCheckingEnabled" -bool false
 }
 
@@ -313,11 +325,8 @@ function continous_spell_check() {
 
 function homebrew() {
     if test ! $(which brew); then
-        cecho "Installing Homebrew? (y/n)" $red
-        read -r response
-        if [[ $response =~ ^([yY][eE][sS]|[yY])$ ]]; then
-            /usr/bin/ruby -e "$(curl -fsSL https://raw.githubusercontent.com/Homebrew/install/master/install)"
-        fi
+        cecho "Installing Homebrew? (y/n)" $magenta
+        response "/usr/bin/ruby -e \"$(curl -fsSL https://raw.githubusercontent.com/Homebrew/install/master/install)"
     else
         cecho "Updating Homebrew" $green
         brew update
@@ -328,23 +337,27 @@ function homebrew() {
     brew tap homebrew/dupes
 
     fails=()
+    echo
 }
 
 function xcode() {
     cecho "Installing Xcode command line tools" $green
     xcode-select --install
+    echo
 }
 
 #———— Execute
 
-echo #General
-system_name
 echo
+echo "##########################"
+echo "# General UI/UX          #"
+echo "##########################"
+echo
+
+system_name
 debug_menu
 expand_save
-echo
 save_not_icloud
-echo
 printer_quit
 login_window_info
 auto_photos_device
@@ -357,7 +370,12 @@ remove_duplicates_open
 smart_quotes
 launchpad_row_column
 
-echo #Peripherie
+echo
+echo "##########################"
+echo "# Peripherie             #"
+echo "##########################"
+echo
+
 increase_sound_qual
 keyboard_ui_mode
 press_and_hold
@@ -368,33 +386,61 @@ keyboard_illumination
 auto_display_brightness
 auto_keyboard_brightness
 
-echo #Dock & Mission Control
-wipe_dock
 echo
+echo "##########################"
+echo "# Dock & Mission Control #"
+echo "##########################"
+echo
+
+wipe_dock
 icon_size_dock
 hide_menu_bar
 autohide_menu_bar
 focus_ring_anim
 mission_control_anim
 
-echo #Mail
+echo
+echo "##########################"
+echo "# Mail                   #"
+echo "##########################"
+echo
+
 name_pasteboard
 
-echo #Terminal
+echo
+echo "##########################"
+echo "# Terminal               #"
+echo "##########################"
+echo
+
 encode_theme
 
-echo #Time Machine
+echo
+echo "##########################"
+echo "# Time Machine           #"
+echo "##########################"
+echo
+
 no_offer_drive
 local_backup
 
-echo #Messages
+echo
+echo "##########################"
+echo "# Messages               #"
+echo "##########################"
+echo
+
 emoji_substitution
 smart_quotes_messages
 continous_spell_check
 
-echo #Additional Programs
-homebrew
 echo
+echo "##########################"
+echo "# Additional Programs    #"
+echo "##########################"
+echo
+
+homebrew
 xcode
 
 read
