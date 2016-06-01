@@ -20,7 +20,7 @@ function cecho() {
 
 function response() {
     read -r response
-    if [[ $response =~ ^([yY][eE][sS]|[yY])$ ]]; then
+    if [[ $response =~ ^([yY][eE][sS]|[yY][eE]|[yY])$ ]]; then
     ${1}
     fi
 }
@@ -168,6 +168,156 @@ function launchpad_row_column() {
     echo
 }
 
+function hide_menu_extra() {
+    cecho "Hide the Time Machine, Volume, User, and Bluetooth icons" $yellow
+    # Get the system Hardware UUID and use it for the next menubar stuff
+    for domain in ~/Library/Preferences/ByHost/com.apple.systemuiserver.*; do
+        #defaults write "${domain}" dontAutoLoad -array \
+        "/System/Library/CoreServices/Menu Extras/TimeMachine.menu" \
+        "/System/Library/CoreServices/Menu Extras/Volume.menu" \
+        "/System/Library/CoreServices/Menu Extras/User.menu"
+    done
+
+    #defaults write com.apple.systemuiserver menuExtras -array \
+    "/System/Library/CoreServices/Menu Extras/Bluetooth.menu" \
+    "/System/Library/CoreServices/Menu Extras/AirPort.menu" \
+    "/System/Library/CoreServices/Menu Extras/Battery.menu" \
+    "/System/Library/CoreServices/Menu Extras/Clock.menu"
+}
+
+function indexing() {
+    cecho "Change indexing order and disable some search results in Spotlight" $yellow
+# Yosemite-specific search results (remove them if your are using OS X 10.9 or older):
+#   MENU_DEFINITION
+#   MENU_CONVERSION
+#   MENU_EXPRESSION
+#   MENU_SPOTLIGHT_SUGGESTIONS (send search queries to Apple)
+#   MENU_WEBSEARCH             (send search queries to Apple)
+#   MENU_OTHER
+    #defaults write com.apple.spotlight orderedItems -array \
+'{"enabled" = 1;"name" = "APPLICATIONS";}' \
+'{"enabled" = 1;"name" = "SYSTEM_PREFS";}' \
+'{"enabled" = 1;"name" = "DIRECTORIES";}' \
+'{"enabled" = 1;"name" = "PDF";}' \
+'{"enabled" = 1;"name" = "FONTS";}' \
+'{"enabled" = 0;"name" = "DOCUMENTS";}' \
+'{"enabled" = 0;"name" = "MESSAGES";}' \
+'{"enabled" = 0;"name" = "CONTACT";}' \
+'{"enabled" = 0;"name" = "EVENT_TODO";}' \
+'{"enabled" = 0;"name" = "IMAGES";}' \
+'{"enabled" = 0;"name" = "BOOKMARKS";}' \
+'{"enabled" = 0;"name" = "MUSIC";}' \
+'{"enabled" = 0;"name" = "MOVIES";}' \
+'{"enabled" = 0;"name" = "PRESENTATIONS";}' \
+'{"enabled" = 0;"name" = "SPREADSHEETS";}' \
+'{"enabled" = 0;"name" = "SOURCE";}' \
+'{"enabled" = 0;"name" = "MENU_DEFINITION";}' \
+'{"enabled" = 0;"name" = "MENU_OTHER";}' \
+'{"enabled" = 0;"name" = "MENU_CONVERSION";}' \
+'{"enabled" = 0;"name" = "MENU_EXPRESSION";}' \
+'{"enabled" = 0;"name" = "MENU_WEBSEARCH";}' \
+'{"enabled" = 0;"name" = "MENU_SPOTLIGHT_SUGGESTIONS";}'
+# Load new settings before rebuilding the index
+    #killall mds > /dev/null 2>&1
+# Make sure indexing is enabled for the main volume
+    #sudo mdutil -i on / > /dev/null
+# Rebuild the index from scratch
+    #sudo mdutil -E / > /dev/null
+}
+
+##########################
+# General Power          #
+##########################
+
+function hibernation() {
+    cecho "Disable hibernation? (speeds up entering sleep mode) (y/n)" $magenta
+    response "#sudo pmset -a hibernatemode 0"
+}
+
+function rm_sleepFile() {
+    cecho "Remove the sleep image file to save disk space? (y/n)" $magenta
+    cecho "(If you're on a <128GB SSD, this helps but can have adverse affects on performance. You've been warned.)" $black
+
+    function sleepFile() {
+        #sudo rm /Private/var/vm/sleepimage
+        cecho "Creating a zero-byte file instead" $yellow
+        #sudo touch /Private/var/vm/sleepimage
+        cecho "and make sure it can't be rewritten" $yellow
+        #sudo chflags uchg /Private/var/vm/sleepimage
+    }
+
+    response sleepFile
+}
+
+function sms() {
+    cecho "Disable the sudden motion sensor (it's not useful for SSDs/current MacBooks)" $yellow
+    resonse "#sudo pmset -a sms 0"
+}
+
+function system_resume() {
+    cecho "Disable system-wide resume" $yellow
+    #defaults write com.apple.systempreferences NSQuitAlwaysKeepsWindows -bool false
+}
+
+function menu_tansparency() {
+    cecho "Disable the menubar transparency" $yellow
+    #defaults write com.apple.universalaccess reduceTransparency -bool true
+}
+
+function speed_wakeup() {
+    cecho "Speeding up wake from sleep to 24 hours from an hour" $yellow
+    #sudo pmset -a standbydelay 86400
+}
+
+##########################
+# Screen                 #
+##########################
+
+function askForPassword() {
+    cecho "Requiring password immediately after sleep or screen saver begins" $yellow
+    #defaults write com.apple.screensaver askForPassword -int 1
+    #defaults write com.apple.screensaver askForPasswordDelay -int 0
+}
+
+function screenshot_location() {
+    cecho "Where do you want screenshots to be stored? (hit ENTER if you want ~/Desktop as default)" $magenta
+
+    read screenshot_location
+
+    if [ -z "${screenshot_location}" ]; then
+        # If nothing specified, we default to ~/Desktop
+        screenshot_location="${HOME}/Desktop"
+    elif [[ "${screenshot_location:0:1}" != "/" ]]; then
+        # If input doesn't start with /, assume it's relative to home
+        screenshot_location="${HOME}/${screenshot_location}"
+    fi
+
+    cecho "Setting location to ${screenshot_location}" $yellow
+    #defaults write com.apple.screencapture location -string "${screenshot_location}"
+}
+
+function screenshot_format() {
+    cecho "What format should screenshots be saved as? (hit ENTER for PNG, options: BMP, GIF, JPG, PDF, TIFF)" $magenta
+    read screenshot_format
+    if [ -z "$1" ]; then
+        cecho "Setting screenshot format to PNG" $yellow
+        #defaults write com.apple.screencapture type -string "png"
+    else
+        cecho "Setting screenshot format to $screenshot_format" $yellow
+        #defaults write com.apple.screencapture type -string "$screenshot_format"
+    fi
+}
+
+function subpix_render() {
+    cecho "Enabling subpixel font rendering on non-Apple LCDs" $yellow
+    #defaults write NSGlobalDomain AppleFontSmoothing -int 2
+}
+
+function HiDPI() {
+    cecho "Enabling HiDPI display modes (requires restart)" $yellow
+    #sudo defaults write /Library/Preferences/com.apple.windowserver DisplayResolutionEnabled -bool true
+}
+
 ##########################
 # Peripherie             #
 ##########################
@@ -260,6 +410,100 @@ function mission_control_anim() {
 }
 
 ##########################
+# Finder                 #
+##########################
+
+function drives_on_desktop() {
+    cecho "Show icons for hard drives, servers, and removable media on the desktop" $green
+    defaults write com.apple.finder ShowExternalHardDrivesOnDesktop -bool true
+}
+
+function HiddenFiles() {
+    cecho "Show hidden files in Finder by default" $yellow
+    #defaults write com.apple.Finder AppleShowAllFiles -bool true
+}
+
+function dotfiles() {
+    cecho "Show dotfiles in Finder by default" $yellow
+    #defaults write com.apple.finder AppleShowAllFiles TRUE
+}
+
+function suffix() {
+    cecho "Show all filename extensions in Finder by default" $green
+    defaults write NSGlobalDomain AppleShowAllExtensions -bool true
+}
+
+function finder_status_bar() {
+    cecho "Show status bar in Finder by default" $green
+    defaults write com.apple.finder ShowStatusBar -bool true
+}
+
+function finder_path() {
+    cecho "Display full POSIX path as Finder window title" $green
+    defaults write com.apple.finder _FXShowPosixPathInTitle -bool true
+}
+
+function suffix_change_warn() {
+    cecho "Disable the warning when changing a file extension" $yellow
+    #defaults write com.apple.finder FXEnableExtensionChangeWarning -bool false
+}
+
+function finder_column_view() {
+    cecho "Use column view in all Finder windows by default" $yellow
+    #defaults write com.apple.finder FXPreferredViewStyle Clmv
+}
+
+function avoid_DS_Store() {
+    cecho "Avoid creation of .DS_Store files on network volumes" $yellow
+    #defaults write com.apple.desktopservices DSDontWriteNetworkStores -bool true
+}
+
+function disk_img_verif() {
+    cecho "Disable disk image verification" $yellow
+    #defaults write com.apple.frameworks.diskimages skip-verify -bool true
+    #defaults write com.apple.frameworks.diskimages skip-verify-locked -bool true
+    #defaults write com.apple.frameworks.diskimages skip-verify-remote -bool true
+}
+
+function finder_prev_select() {
+    cecho "Allowing text selection in Quick Look/Preview in Finder by default" $yellow
+    #defaults write com.apple.finder QLEnableTextSelection -bool true
+}
+
+function item_info() {
+    cecho "Show item info near icons on the desktop and in other icon views" $yellow
+    #/usr/libexec/PlistBuddy -c "Set :DesktopViewSettings:IconViewSettings:showItemInfo true" ~/Library/Preferences/com.apple.finder.plist
+    #/usr/libexec/PlistBuddy -c "Set :FK_StandardViewSettings:IconViewSettings:showItemInfo true" ~/Library/Preferences/com.apple.finder.plist
+    #/usr/libexec/PlistBuddy -c "Set :StandardViewSettings:IconViewSettings:showItemInfo true" ~/Library/Preferences/com.apple.finder.plist
+}
+
+function item_info_right() {
+    cecho "Show item info to the right of the icons on the desktop" $yellow
+    #/usr/libexec/PlistBuddy -c "Set DesktopViewSettings:IconViewSettings:labelOnBottom false" ~/Library/Preferences/com.apple.finder.plist
+}
+
+function snap_to_grid() {
+    cecho "Enable snap-to-grid for icons on the desktop and in other icon views" $green
+    /usr/libexec/PlistBuddy -c "Set :DesktopViewSettings:IconViewSettings:arrangeBy grid" ~/Library/Preferences/com.apple.finder.plist
+    /usr/libexec/PlistBuddy -c "Set :FK_StandardViewSettings:IconViewSettings:arrangeBy grid" ~/Library/Preferences/com.apple.finder.plist
+    /usr/libexec/PlistBuddy -c "Set :StandardViewSettings:IconViewSettings:arrangeBy grid" ~/Library/Preferences/com.apple.finder.plist
+}
+
+function grid_spacing() {
+    cecho "Increase grid spacing for icons on the desktop and in other icon views" $yellow
+    #/usr/libexec/PlistBuddy -c "Set :DesktopViewSettings:IconViewSettings:gridSpacing 100" ~/Library/Preferences/com.apple.finder.plist
+    #/usr/libexec/PlistBuddy -c "Set :FK_StandardViewSettings:IconViewSettings:gridSpacing 100" ~/Library/Preferences/com.apple.finder.plist
+    #/usr/libexec/PlistBuddy -c "Set :StandardViewSettings:IconViewSettings:gridSpacing 100" ~/Library/Preferences/com.apple.finder.plist
+}
+
+function icon_size() {
+    cecho "Increase the size of icons on the desktop and in other icon views" $yellow
+    #/usr/libexec/PlistBuddy -c "Set :DesktopViewSettings:IconViewSettings:iconSize 80" ~/Library/Preferences/com.apple.finder.plist
+    #/usr/libexec/PlistBuddy -c "Set :FK_StandardViewSettings:IconViewSettings:iconSize 80" ~/Library/Preferences/com.apple.finder.plist
+    #/usr/libexec/PlistBuddy -c "Set :StandardViewSettings:IconViewSettings:iconSize 80" ~/Library/Preferences/com.apple.finder.plist
+}
+
+##########################
 # Mail                   #
 ##########################
 
@@ -320,6 +564,70 @@ function continous_spell_check() {
 }
 
 ##########################
+# Safari & WebKit        #
+##########################
+
+function safari_search_query() {
+    cecho "Privacy: Don't send search queries to Apple" $green
+    defaults write com.apple.Safari UniversalSearchEnabled -bool false
+    defaults write com.apple.Safari SuppressSearchSuggestions -bool true
+}
+
+function safari_hide_bookmarks() {
+    cecho "Hiding Safari's bookmarks bar by default" $yellow
+    #defaults write com.apple.Safari ShowFavoritesBar -bool false
+}
+
+function safari_sidebar() {
+    cecho "Hiding Safari's sidebar in Top Sites" $yellow
+    #defaults write com.apple.Safari ShowSidebarInTopSites -bool false
+}
+
+function safari_thumbnail() {
+    cecho "Disabling Safari's thumbnail cache for History and Top Sites" $yellow
+    #defaults write com.apple.Safari DebugSnapshotsUpdatePolicy -int 2
+}
+
+function safari_debug_mode() {
+    cecho "Enabling Safari's debug menu" $green
+    defaults write com.apple.Safari IncludeInternalDebugMenu -bool true
+}
+
+function safari_constraint_search() {
+    cecho "Making Safari's search banners default to Contains instead of Starts With" $yellow
+    #defaults write com.apple.Safari FindOnPageMatchesWordStartsOnly -bool false
+}
+
+function rm_icons_bookmark_bar() {
+    cecho "Removing useless icons from Safari's bookmarks bar" $yellow
+    #defaults write com.apple.Safari ProxiesInBookmarksBar "()"
+}
+
+function safari_develop_mode() {
+    cecho "Enabling the Develop menu and the Web Inspector in Safari" $green
+    defaults write com.apple.Safari IncludeDevelopMenu -bool true
+    defaults write com.apple.Safari WebKitDeveloperExtrasEnabledPreferenceKey -bool true
+    defaults write com.apple.Safari "com.apple.Safari.ContentPageGroupIdentifier.WebKit2DeveloperExtrasEnabled" -bool true
+}
+
+function webInspector_contextMenu() {
+    cecho "Adding a context menu item for showing the Web Inspector in web views" $yellow
+    #defaults write NSGlobalDomain WebKitDeveloperExtras -bool true
+}
+
+function chrome_backswipe() {
+    cecho "Disabling the annoying backswipe in Chrome" $yellow
+    #defaults write com.google.Chrome AppleEnableSwipeNavigateWithScrolls -bool false
+    #defaults write com.google.Chrome.canary AppleEnableSwipeNavigateWithScrolls -bool false
+}
+
+function chrome_print_preview() {
+    cecho "Using the system-native print preview dialog in Chrome" $yellow
+    #defaults write com.google.Chrome DisablePrintPreview -bool true
+    #defaults write com.google.Chrome.canary DisablePrintPreview -bool true
+}
+
+##########################
 # Additional Programs    #
 ##########################
 
@@ -369,6 +677,33 @@ check_update_daily
 remove_duplicates_open
 smart_quotes
 launchpad_row_column
+hide_menu_extra
+indexing
+
+echo
+echo "##########################"
+echo "# General Power          #"
+echo "##########################"
+echo
+
+hibernation
+rm_sleepFile
+sms
+system_resume
+menu_tansparency
+speed_wakeup
+
+echo
+echo "##########################"
+echo "# Screen                 #"
+echo "##########################"
+echo
+
+askForPassword
+screenshot_location
+screenshot_format
+subpix_render
+HiDPI
 
 echo
 echo "##########################"
@@ -398,6 +733,29 @@ hide_menu_bar
 autohide_menu_bar
 focus_ring_anim
 mission_control_anim
+
+echo
+echo "##########################"
+echo "# Finder                 #"
+echo "##########################"
+echo
+
+drives_on_desktop
+HiddenFiles
+dotfiles
+suffix
+finder_status_bar
+finder_path
+suffix_change_warn
+finder_column_view
+avoid_DS_Store
+disk_img_verif
+finder_prev_select
+item_info
+item_info_right
+snap_to_grid
+grid_spacing
+icon_size
 
 echo
 echo "##########################"
@@ -433,6 +791,24 @@ echo
 emoji_substitution
 smart_quotes_messages
 continous_spell_check
+
+echo
+echo "##########################"
+echo "# Safari & WebKit        #"
+echo "##########################"
+echo
+
+safari_search_query
+safari_hide_bookmarks
+safari_sidebar
+safari_thumbnail
+safari_debug_mode
+safari_constraint_search
+rm_icons_bookmark_bar
+safari_develop_mode
+webInspector_contextMenu
+chrome_backswipe
+chrome_print_preview
 
 echo
 echo "##########################"
