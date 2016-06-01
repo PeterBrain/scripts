@@ -5,7 +5,7 @@ set +v
 en0=`ipconfig getifaddr en0`
 en1=`ipconfig getifaddr en1`
 
-if [ -n "$en1" ]; then
+if [ -n "$en1" ] || [ -n "$en0" ]; then
 
 echo
 echo "\033[0;32m"Connected with WLAN-Network"\033[0m"
@@ -21,7 +21,7 @@ mkdir /tmp/share
 
 if [ $SSID = "Home" ]; then
 
-for drive in $drives
+for drive in $drives_all
 do
 
 	drive_mk=(${drive//$/})
@@ -55,7 +55,7 @@ if [ -n "$en0" ]; then
 echo
 echo "\033[0;32m"Connected with LAN-Network"\033[0m"
 echo
-
+:`
 drives_school="classes"
 mkdir /tmp/share
 
@@ -73,7 +73,7 @@ do
 	echo "\033[0;32m"Connected to Network Drive: $drive"\033[0m"
 
 done
-
+`
 else
     echo
     echo "\033[0;31m"No ethernet cable connected"\033[0m"
