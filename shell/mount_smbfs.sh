@@ -74,6 +74,19 @@ do
 
 done
 `
+for drive in $drives_all
+do
+
+drive_mk=(${drive//$/})
+mkdir /tmp/share/${drive_mk[0]}
+mount -t smbfs smb://guest@SVR-01/$drive /tmp/share/${drive_mk[0]}
+
+echo "\033[0;32m"Connected to Network Drive: $drive"\033[0m"
+
+done
+
+
+
 else
     echo
     echo "\033[0;31m"No ethernet cable connected"\033[0m"
