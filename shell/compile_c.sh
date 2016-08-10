@@ -17,7 +17,7 @@ EXT=${FILE##*.}
 
 cd "$FILEPATH"
 
-gcc "$FILE" -o "$NAME"
+gcc -o "$NAME" "$FILE" -framework IOKit -framework ApplicationServices -framework CoreFoundation
 
 echo
 echo "Done"
