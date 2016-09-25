@@ -665,13 +665,13 @@ echo
 system_name
 debug_menu
 expand_save
-save_not_icloud
+#save_not_icloud
 printer_quit
 login_window_info
 auto_photos_device
 dark_mode_hotkey
-crashreport_popup
-hide_spotlight_icon
+#crashreport_popup
+#hide_spotlight_icon
 spotlight_indexing
 check_update_daily
 remove_duplicates_open
