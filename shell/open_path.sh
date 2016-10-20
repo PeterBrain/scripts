@@ -3,14 +3,16 @@
 echo
 echo "Which number do you want to open?"
 echo
-echo "1. Path to hosts file"
+echo "1. hosts file"
 echo "2. taco home (remotebuild)"
+echo "3. /tmp/ - mounted my shared folders in there"
 echo
 read val
 
 case $val in
     "1") cd /private/etc/;;
     "2") cd /Users/PeterBrain/.taco_home/;;
+    "3") cd /tmp/;;
     *) cd /desktop/;;
 esac
 
