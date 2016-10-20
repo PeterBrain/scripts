@@ -1,6 +1,8 @@
 # Scripts
 This is a collection of all my shell and batch scripts.
 
+Everything that needs a long time and has to be done very often is now a script. In my case.
+
 &nbsp;
 
 ## Introduction
