@@ -14,7 +14,16 @@ cyan='\033[0;36m'
 white='\033[0;37m'
 
 function cecho() {
-    echo "${2}${1}${NC}"
+
+    case $2 in
+        "false") color=$red;;
+        "true") color=$green;;
+        "quest") color=$magenta;;
+        *) color=$2;;
+    esac
+
+    #echo "${2}${1}${NC}"
+    echo "${color}${1}${NC}"
     return
 }
 
@@ -54,7 +63,7 @@ set +e
 ##########################
 
 function system_name() {
-    cecho "Would you like to set a computer name (System Preferences -> Sharing)?  (y/n)" $magenta
+    cecho "Would you like to set a computer name (System Preferences -> Sharing)?  (y/n)" $1
     function computername() {
         cecho "What would you like it to be?" $magenta
         read COMPUTER_NAME
@@ -68,7 +77,7 @@ function system_name() {
 }
 
 function debug_menu() {
-    cecho "Enabling Debug Menus" $green
+    cecho "Enabling Debug Menus" $1
     # AppStore
     defaults write com.apple.appstore ShowDebugMenu -bool true
 
@@ -85,7 +94,7 @@ function debug_menu() {
 }
 
 function expand_save() {
-    cecho "Expanding the save panel by default" $green
+    cecho "Expanding the save panel by default" $1
     defaults write NSGlobalDomain NSNavPanelExpandedStateForSaveMode -bool true
     defaults write NSGlobalDomain PMPrintingExpandedStateForPrint -bool true
     defaults write NSGlobalDomain PMPrintingExpandedStateForPrint2 -bool true
@@ -93,67 +102,67 @@ function expand_save() {
 
 function save_not_icloud() {
     echo
-    cecho "Save to disk, rather than iCloud, by default? (y/n)" $magenta
+    cecho "Save to disk, rather than iCloud, by default? (y/n)" $1
     response "defaults write NSGlobalDomain NSDocumentSaveNewDocumentsToCloud -bool false"
     echo
 }
 
 function printer_quit() {
-    cecho "Automatically quit printer app once the print jobs complete" $green
+    cecho "Automatically quit printer app once the print jobs complete" $1
     defaults write com.apple.print.PrintingPrefs "Quit When Finished" -bool true
 }
 
 function login_window_info() {
-    cecho "Reveal IP address, hostname, OS version when clicking the clock in the login window" $green
+    cecho "Reveal IP address, hostname, OS version when clicking the clock in the login window" $1
     sudo defaults write /Library/Preferences/com.apple.loginwindow AdminHostInfo HostName
     #sudo defaults delete /Library/Preferences/com.apple.loginwindow AdminHostInfo HostName
 }
 
 function auto_photos_device() {
-    cecho "Disable Photos.app from starting everytime a device is plugged in" $green
+    cecho "Disable Photos.app from starting everytime a device is plugged in" $1
     defaults -currentHost write com.apple.ImageCapture disableHotPlug -bool true
 }
 
 function dark_mode_hotkey() {
-    cecho "Enable dark mode hotkey CMD+ALT+CTRL+T" $green
+    cecho "Enable dark mode hotkey CMD+ALT+CTRL+T" $1
     sudo defaults write /Library/Preferences/.GlobalPreferences.plist _HIEnableThemeSwitchHotKey -bool true
 }
 
 function crashreport_popup() {
-    cecho "Disable crash-report popup and use notification instead" $green
+    cecho "Disable crash-report popup and use notification instead" $1
     defaults write com.apple.CrashReporter UseUNC 1
     #defaults write com.apple.CrashReporter UseUNC 0
 }
 
 function hide_spotlight_icon() {
-    cecho "Hide the Spotlight icon" $yellow
+    cecho "Hide the Spotlight icon" $1
     sudo chmod 600 /System/Library/CoreServices/Search.bundle/Contents/MacOS/Search
 }
 
 function spotlight_indexing() {
-    cecho "Disable Spotlight indexing for any volume that gets mounted and has not yet been indexed before" $yellow
+    cecho "Disable Spotlight indexing for any volume that gets mounted and has not yet been indexed before" $1
     echo 'Use `sudo mdutil -i off "/Volumes/foo"` to stop indexing any volume.'
     sudo defaults write /.Spotlight-V100/VolumeConfiguration Exclusions -array "/Volumes"
 }
 
 function check_update_daily() {
-    cecho "Check for software updates daily, not just once per week" $yellow
+    cecho "Check for software updates daily, not just once per week" $1
     defaults write com.apple.SoftwareUpdate ScheduleFrequency -int 1
 }
 
 function remove_duplicates_open() {
-    cecho "Removing duplicates in the 'Open With' menu" $yellow
+    cecho "Removing duplicates in the 'Open With' menu" $1
     /System/Library/Frameworks/CoreServices.framework/Frameworks/LaunchServices.framework/Support/lsregister -kill -r -domain local -domain system -domain user
 }
 
 function smart_quotes() {
-    cecho "Disable smart quotes and samrt dashes" $yellow
+    cecho "Disable smart quotes and samrt dashes" $1
     defaults write NSGlobalDomain NSAutomaticQuoteSubstitutionEnabled -bool false
     defaults write NSGlobalDomain NSAutomaticDashSubstitutionEnabled -bool false
 }
 
 function launchpad_row_column() {
-    cecho "Edit amount of Launchpad rows and columns" $yellow
+    cecho "Edit amount of Launchpad rows and columns" $1
     cecho "(default 5rows 7columns)" $black
     #defaults write com.apple.dock springboard-columns -int X
     #defaults write com.apple.dock springboard-rows -int X
@@ -169,7 +178,7 @@ function launchpad_row_column() {
 }
 
 function hide_menu_extra() {
-    cecho "Hide the Time Machine, Volume, User, and Bluetooth icons" $yellow
+    cecho "Hide the Time Machine, Volume, User, and Bluetooth icons" $1
     # Get the system Hardware UUID and use it for the next menubar stuff
     for domain in ~/Library/Preferences/ByHost/com.apple.systemuiserver.*; do
         #defaults write "${domain}" dontAutoLoad -array \
@@ -186,7 +195,7 @@ function hide_menu_extra() {
 }
 
 function indexing() {
-    cecho "Change indexing order and disable some search results in Spotlight" $yellow
+    cecho "Change indexing order and disable some search results in Spotlight" $1
 # Yosemite-specific search results (remove them if your are using OS X 10.9 or older):
 #   MENU_DEFINITION
 #   MENU_CONVERSION
@@ -230,12 +239,12 @@ function indexing() {
 ##########################
 
 function hibernation() {
-    cecho "Disable hibernation? (speeds up entering sleep mode) (y/n)" $magenta
+    cecho "Disable hibernation? (speeds up entering sleep mode) (y/n)" $1
     response "#sudo pmset -a hibernatemode 0"
 }
 
 function rm_sleepFile() {
-    cecho "Remove the sleep image file to save disk space? (y/n)" $magenta
+    cecho "Remove the sleep image file to save disk space? (y/n)" $1
     cecho "(If you're on a <128GB SSD, this helps but can have adverse affects on performance. You've been warned.)" $black
 
     function sleepFile() {
@@ -250,22 +259,22 @@ function rm_sleepFile() {
 }
 
 function sms() {
-    cecho "Disable the sudden motion sensor (it's not useful for SSDs/current MacBooks)" $yellow
-    resonse "#sudo pmset -a sms 0"
+    cecho "Disable the sudden motion sensor (it's not useful for SSDs/current MacBooks)" $1
+    response "#sudo pmset -a sms 0"
 }
 
 function system_resume() {
-    cecho "Disable system-wide resume" $yellow
+    cecho "Disable system-wide resume" $1
     defaults write com.apple.systempreferences NSQuitAlwaysKeepsWindows -bool false
 }
 
 function menu_tansparency() {
-    cecho "Disable the menubar transparency" $yellow
+    cecho "Disable the menubar transparency" $1
     defaults write com.apple.universalaccess reduceTransparency -bool true
 }
 
 function speed_wakeup() {
-    cecho "Speeding up wake from sleep to 24 hours from an hour" $yellow
+    cecho "Speeding up wake from sleep to 24 hours from an hour" $1
     sudo pmset -a standbydelay 86400
 }
 
@@ -662,23 +671,23 @@ echo "# General UI/UX          #"
 echo "##########################"
 echo
 
-#system_name
-debug_menu
-expand_save
-#save_not_icloud
-printer_quit
-#login_window_info
-auto_photos_device
-dark_mode_hotkey
-#crashreport_popup
-#hide_spotlight_icon
-#spotlight_indexing
-#check_update_daily
-#remove_duplicates_open
-#smart_quotes
-#launchpad_row_column
-#hide_menu_extra
-#indexing
+#system_name quest
+debug_menu true
+expand_save true
+#save_not_icloud false
+printer_quit true
+#login_window_info false
+auto_photos_device true
+dark_mode_hotkey true
+#crashreport_popup false
+#hide_spotlight_icon false
+#spotlight_indexing false
+#check_update_daily false
+#remove_duplicates_open false
+#smart_quotes false
+#launchpad_row_column false
+#hide_menu_extra false
+#indexing false
 
 echo
 echo "##########################"
@@ -686,12 +695,12 @@ echo "# General Power          #"
 echo "##########################"
 echo
 
-hibernation
-#rm_sleepFile
-sms
-#system_resume
-#menu_tansparency
-#speed_wakeup
+hibernation quest
+#rm_sleepFile quest
+#sms false
+#system_resume false
+#menu_tansparency false
+#speed_wakeup false
 
 echo
 echo "##########################"
@@ -699,11 +708,11 @@ echo "# Screen                 #"
 echo "##########################"
 echo
 
-#askForPassword
-#screenshot_location
-#screenshot_format
-#subpix_render
-#HiDPI
+#askForPassword false
+#screenshot_location false
+#screenshot_format false
+#subpix_render false
+#HiDPI false
 
 echo
 echo "##########################"
@@ -711,15 +720,15 @@ echo "# Peripherie             #"
 echo "##########################"
 echo
 
-increase_sound_qual
-#keyboard_ui_mode
-#press_and_hold
-#key_repeat
-#auto_correct
-#mouse_track_speed
-keyboard_illumination
-#auto_display_brightness
-#auto_keyboard_brightness
+increase_sound_qual true
+#keyboard_ui_mode false
+#press_and_hold false
+#key_repeat false
+#auto_correct false
+#mouse_track_speed false
+keyboard_illumination true
+#auto_display_brightness false
+#auto_keyboard_brightness false
 
 echo
 echo "##########################"
@@ -727,12 +736,12 @@ echo "# Dock & Mission Control #"
 echo "##########################"
 echo
 
-#wipe_dock
-icon_size_dock
-#hide_menu_bar
-#autohide_menu_bar
-#focus_ring_anim
-#mission_control_anim
+#wipe_dock false
+icon_size_dock true
+#hide_menu_bar false
+#autohide_menu_bar false
+#focus_ring_anim false
+#mission_control_anim false
 
 echo
 echo "##########################"
@@ -740,22 +749,22 @@ echo "# Finder                 #"
 echo "##########################"
 echo
 
-drives_on_desktop
-#HiddenFiles
-#dotfiles
-suffix
-finder_status_bar
-finder_path
-#suffix_change_warn
-#finder_column_view
-#avoid_DS_Store
-#disk_img_verif
-#finder_prev_select
-#item_info
-#item_info_right
-snap_to_grid
-#grid_spacing
-#icon_size
+drives_on_desktop true
+#HiddenFiles false
+#dotfiles false
+suffix true
+finder_status_bar true
+finder_path true
+#suffix_change_warn false
+#finder_column_view false
+#avoid_DS_Store false
+#disk_img_verif false
+#finder_prev_select false
+#item_info false
+#item_info_right false
+snap_to_grid true
+#grid_spacing false
+#icon_size false
 
 echo
 echo "##########################"
@@ -763,7 +772,7 @@ echo "# Mail                   #"
 echo "##########################"
 echo
 
-#name_pasteboard
+#name_pasteboard false
 
 echo
 echo "##########################"
@@ -771,7 +780,7 @@ echo "# Terminal               #"
 echo "##########################"
 echo
 
-#encode_theme
+#encode_theme false
 
 echo
 echo "##########################"
@@ -779,8 +788,8 @@ echo "# Time Machine           #"
 echo "##########################"
 echo
 
-#no_offer_drive
-#local_backup
+#no_offer_drive false
+#local_backup false
 
 echo
 echo "##########################"
@@ -788,9 +797,9 @@ echo "# Messages               #"
 echo "##########################"
 echo
 
-#emoji_substitution
-#smart_quotes_messages
-#continous_spell_check
+#emoji_substitution false
+#smart_quotes_messages false
+#continous_spell_check false
 
 echo
 echo "##########################"
@@ -798,17 +807,17 @@ echo "# Safari & WebKit        #"
 echo "##########################"
 echo
 
-safari_search_query
-#safari_hide_bookmarks
-#safari_sidebar
-#safari_thumbnail
-safari_debug_mode
-#safari_constraint_search
-#rm_icons_bookmark_bar
-safari_develop_mode
-#webInspector_contextMenu
-#chrome_backswipe
-#chrome_print_preview
+safari_search_query true
+#safari_hide_bookmarks false
+#safari_sidebar false
+#safari_thumbnail false
+safari_debug_mode true
+#safari_constraint_search false
+#rm_icons_bookmark_bar false
+safari_develop_mode true
+#webInspector_contextMenu false
+#chrome_backswipe false
+#chrome_print_preview false
 
 echo
 echo "##########################"
