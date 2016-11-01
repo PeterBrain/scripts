@@ -30,7 +30,9 @@ function cecho() {
 function response() {
     read -r response
     if [[ $response =~ ^([yY][eE][sS]|[yY][eE]|[yY])$ ]]; then
-    ${1}
+        ${1} true
+    elif [[ $response =~ ^([nN][oO]|[nN])$ ]]; then
+        ${1} false
     fi
 }
 
@@ -130,13 +132,20 @@ function dark_mode_hotkey() {
 
 function crashreport_popup() {
     cecho "Disable crash-report popup and use notification instead" $1
-    defaults write com.apple.CrashReporter UseUNC 1
-    #defaults write com.apple.CrashReporter UseUNC 0
+    if [ $1 == true ]; then
+        defaults write com.apple.CrashReporter UseUNC 1
+    else
+        defaults write com.apple.CrashReporter UseUNC 0
+    fi
 }
 
 function hide_spotlight_icon() {
     cecho "Hide the Spotlight icon" $1
-    sudo chmod 600 /System/Library/CoreServices/Search.bundle/Contents/MacOS/Search
+    if [ $1 == true ]; then
+        sudo chmod 600 /System/Library/CoreServices/Search.bundle/Contents/MacOS/Search
+    else
+        sudo chmod 755 /System/Library/CoreServices/Search.bundle/Contents/MacOS/Search
+    fi
 }
 
 function spotlight_indexing() {
@@ -240,7 +249,18 @@ function indexing() {
 
 function hibernation() {
     cecho "Disable hibernation? (speeds up entering sleep mode) (y/n)" $1
-    response "#sudo pmset -a hibernatemode 0"
+
+    function disable_hibernation() {
+        if [ $1 == true ]; then
+            sudo pmset -a hibernatemode 0
+            cecho "Disabled" $red
+        else
+            sudo pmset -a hibernatemode 3
+            cecho "Enabled" $green
+        fi
+    }
+
+    response disable_hibernation
 }
 
 function rm_sleepFile() {
@@ -259,8 +279,19 @@ function rm_sleepFile() {
 }
 
 function sms() {
-    cecho "Disable the sudden motion sensor (it's not useful for SSDs/current MacBooks)" $1
-    response "#sudo pmset -a sms 0"
+    cecho "Disable the sudden motion sensor (it's not useful for SSDs/current MacBooks)? (y/n)" $1
+
+    function disable_sms() {
+        if [ $1 == true ]; then
+            sudo pmset -a sms 0
+            cecho "Disabled" $red
+        else
+            sudo pmset -a sms 1
+            cecho "Enabled" $green
+        fi
+    }
+
+    response disable_sms
 }
 
 function system_resume() {
@@ -679,8 +710,8 @@ printer_quit true
 #login_window_info false
 auto_photos_device true
 dark_mode_hotkey true
-#crashreport_popup false
-#hide_spotlight_icon false
+crashreport_popup false
+hide_spotlight_icon false
 #spotlight_indexing false
 #check_update_daily false
 #remove_duplicates_open false
@@ -697,7 +728,7 @@ echo
 
 hibernation quest
 #rm_sleepFile quest
-#sms false
+sms quest
 #system_resume false
 #menu_tansparency false
 #speed_wakeup false
