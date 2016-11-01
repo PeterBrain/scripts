@@ -3,6 +3,7 @@
 [![GitHub stars](https://img.shields.io/github/stars/peterbrain/scripts.svg?style=social&label=Star)]()
 [![GitHub forks](https://img.shields.io/github/forks/peterbrain/scripts.svg?style=social&label=Fork)]()
 
+[![GitHub author](https://img.shields.io/badge/Author-PeterBrain-3BCDD6.svg)](http://peterbrain.github.io)
 
 # Scripts
 This is a collection of all my shell and batch scripts.
