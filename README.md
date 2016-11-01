@@ -1,3 +1,6 @@
+[![GitHub forks](https://img.shields.io/github/forks/peterbrain/scripts.svg?style=social&label=Fork)](https://github.com/peterbrain/scripts)
+[![GitHub stars](https://img.shields.io/github/forks/peterbrain/scripts.svg?style=social&label=Star)](https://github.com/peterbrain/scripts)
+
 # Scripts
 This is a collection of all my shell and batch scripts.
 
