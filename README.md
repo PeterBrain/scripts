@@ -1,7 +1,8 @@
 [![GitHub followers](https://img.shields.io/github/followers/peterbrain.svg?style=social&label=Follow)](https://github.com/peterbrain)
-[![GitHub forks](https://img.shields.io/github/forks/peterbrain/scripts.svg?style=social&label=Fork)]()
-[![GitHub stars](https://img.shields.io/github/stars/peterbrain/scripts.svg?style=social&label=Star)]()
 [![GitHub watchers](https://img.shields.io/github/watchers/peterbrain/scripts.svg?style=social&label=Watch)](https://github.com/peterbrain/scripts)
+[![GitHub stars](https://img.shields.io/github/stars/peterbrain/scripts.svg?style=social&label=Star)]()
+[![GitHub forks](https://img.shields.io/github/forks/peterbrain/scripts.svg?style=social&label=Fork)]()
+
 
 # Scripts
 This is a collection of all my shell and batch scripts.
