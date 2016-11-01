@@ -1,8 +1,3 @@
-[![GitHub forks](https://img.shields.io/github/forks/badges/shields.svg?style=social&label=Fork)]()
-[![GitHub stars](https://img.shields.io/github/stars/badges/shields.svg?style=social&label=Star)]()
-[![GitHub watchers](https://img.shields.io/github/watchers/badges/shields.svg?style=social&label=Watch)]()
-[![GitHub followers](https://img.shields.io/github/followers/espadrine.svg?style=social&label=Follow)]()
-
 # Scripts
 This is a collection of all my shell and batch scripts.
 
