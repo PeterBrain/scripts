@@ -2,7 +2,7 @@
 #exec > /dev/null 2>&1
 set +v
 
-drives="Public www$ Peter$ Bilder Movies Games"
+drives="Public www$ Peter$ Bilder Movies"
 
 mkdir /tmp/share
 

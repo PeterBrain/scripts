@@ -11,8 +11,10 @@ read val
 
 case $val in
     "1") cd /private/etc/;;
-    "2") cd /Users/PeterBrain/.taco_home/;;
+    "2") cd /Users/peterbrain/.taco_home/;;
     "3") cd /tmp/;;
+    "4") cd /Users/peterbrain/.npm;;
+    "5") cd /Users/peterbrain/.homebridge;;
     *) cd /desktop/;;
 esac
 
