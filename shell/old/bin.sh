@@ -29,8 +29,6 @@ echo $check_3
 read
 
 
-
-
 # sudo rm -rf ~/Documents/Adobe
 sudo rm -rf /Library/Application\ Support/Adobe*
 sudo rm -rf /Library/Application\ Support/regid.*.com.adobe
@@ -47,3 +45,6 @@ sudo rm -rf ~/Library/Preferences/ByHost/com.adobe*
 sudo rm -rf ~/Library/Preferences/com.{a,A}dobe*
 sudo rm -rf ~/Library/Preferences/Macromedia
 sudo rm -rf ~/Library/Saved\ Application\ State/com.{a,A}dobe*
+
+
+python -m SimpleHTTPServer 8000
