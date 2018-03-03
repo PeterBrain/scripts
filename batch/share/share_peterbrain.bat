@@ -15,8 +15,8 @@ cls
 @ECHO Verbindung herstellen
 @ECHO ---------------------
 @ECHO.
-@ECHO Bitte Passwort eingeben: 
-ping -n 10 loopback >nul 
+@ECHO Bitte Passwort eingeben:
+ping -n 10 loopback >nul
 set /p passwort=
 if NOT DEFINED passwort goto end
 cls
@@ -44,7 +44,7 @@ cls
 color 0A
 @ECHO.
 @ECHO -------------------------------------------
-@ECHO  TASTE DRUECKEN UM DIE FREIGABE ZU BEENDEN 
+@ECHO  TASTE DRUECKEN UM DIE FREIGABE ZU BEENDEN
 @ECHO -------------------------------------------
 pause >nul
 cls
@@ -66,13 +66,13 @@ timeout /t 3
 exit
 
 :end
-cls
-color 0C
-@ECHO.
-@ECHO Fehlermeldung
-@ECHO -------------
-@ECHO.
-@ECHO Eine benoetigte Variable ist nicht Definiert
-@ECHO.
-timeout /t 10
-exit
+	cls
+	color 0C
+	@ECHO.
+	@ECHO Fehlermeldung
+	@ECHO -------------
+	@ECHO.
+	@ECHO Eine benoetigte Variable ist nicht Definiert
+	@ECHO.
+	timeout /t 10
+	exit

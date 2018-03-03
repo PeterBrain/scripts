@@ -24,8 +24,8 @@ cls
 
 color 0F
 @ECHO.
-@ECHO Bitte Passwort eingeben: 
-ping -n 10 loopback >nul 
+@ECHO Bitte Passwort eingeben:
+ping -n 10 loopback >nul
 set /p pass=
 if NOT DEFINED pass goto end
 cls
@@ -47,7 +47,7 @@ cls
 color 0A
 @ECHO.
 @ECHO -------------------------------------------
-@ECHO  TASTE DRUECKEN UM DIE FREIGABE ZU BEENDEN 
+@ECHO  TASTE DRUECKEN UM DIE FREIGABE ZU BEENDEN
 @ECHO -------------------------------------------
 pause >nul
 cls
@@ -69,10 +69,10 @@ timeout /t 5
 exit
 
 :end
-cls
-color 0C
-@ECHO.
-@ECHO Eine benoetigte Variable ist nicht Definiert
-@ECHO.
-timeout /t 10
-exit
+	cls
+	color 0C
+	@ECHO.
+	@ECHO Eine benoetigte Variable ist nicht Definiert
+	@ECHO.
+	timeout /t 10
+	exit
