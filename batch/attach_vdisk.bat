@@ -28,12 +28,12 @@ IF %errorlevel%==0 goto success
 IF %errorlevel%==1 goto error
 
 :error
-echo %username% - %date% %time% - vDisk 1: Letter %letter1%, vDisk 2: Letter %letter2% - ERROR >> "C:\logs\logs_vdisks.txt"
-goto end
+	echo %username% - %date% %time% - vDisk 1: Letter %letter1%, vDisk 2: Letter %letter2% - ERROR >> "C:\logs\logs_vdisks.txt"
+	goto end
 
 :success
-echo %username% - %date% %time% - vDisk 1: Letter %letter1%, vDisk 2: Letter %letter2% - SUCCESS >> "C:\logs\logs_vdisks.txt"
-goto end
+	echo %username% - %date% %time% - vDisk 1: Letter %letter1%, vDisk 2: Letter %letter2% - SUCCESS >> "C:\logs\logs_vdisks.txt"
+	goto end
 
 :end
 
