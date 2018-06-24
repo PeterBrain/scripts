@@ -6,6 +6,9 @@ echo
 echo "1. hosts file"
 echo "2. taco home (remotebuild)"
 echo "3. /tmp/ - mounted my shared folders in there"
+echo "4. npm"
+echo "5. homebridge"
+echo "6. iCloud"
 echo
 read val
 
@@ -15,22 +18,8 @@ case $val in
     "3") cd /tmp/;;
     "4") cd /Users/peterbrain/.npm;;
     "5") cd /Users/peterbrain/.homebridge;;
+    "6") cd /Users/peterbrain/Library/Mobile Documents/com~apple~CloudDocs;;
     *) cd /desktop/;;
 esac
-
-
-
-#if [ $val == "1" ]; then
-
-#cd /private/etc/
-
-#elif [ $val == "2" ]; then
-
-#cd /Users/PeterBrain/.taco_home
-#/Users/PeterBrain/.taco_home/remote-builds/taco-remote/builds/
-
-#fi
-
-
 
 open .
