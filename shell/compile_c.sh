@@ -1,14 +1,8 @@
 #!/bin/sh
 
-echo
-echo "Compile C files"
-echo
-echo "Path to c file"
-read FILE
-echo
-echo "Name the output file"
-read NAME
-echo
+printf "\nCompile C files\n\n"
+read -p "Path to C file: " FILE
+read -p "Name the output file: " NAME
 
 FILENAME=${FILE##*/}
 FILEPATH=${FILE%/*}
@@ -18,9 +12,3 @@ EXT=${FILE##*.}
 cd "$FILEPATH"
 
 gcc -o "$NAME" "$FILE" -framework IOKit -framework ApplicationServices -framework CoreFoundation
-
-echo
-echo "Done"
-echo
-
-read
