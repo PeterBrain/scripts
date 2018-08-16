@@ -2,7 +2,6 @@
 
 printf "Change proxy setting for work\n\n"
 
-#networksetup -getwebproxy Ethernet
 networksetup -setwebproxy Ethernet 172.16.1.64 3128
 networksetup -setsecurewebproxy Ethernet 172.16.1.64 3128
 
