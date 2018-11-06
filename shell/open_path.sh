@@ -12,6 +12,7 @@ directories=( \
   "/Users/$USER/.npm" \
   "/Users/$USER/.homebridge" \
   "/Users/$USER/Library/Mobile Documents/com~apple~CloudDocs" \
+  "/Library/WebServer/Documents" \
 )
 
 select directory in "${directories[@]}"
