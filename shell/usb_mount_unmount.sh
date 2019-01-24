@@ -1,28 +1,13 @@
 #!/bin/sh
 
-echo
-echo "unmount USB drives"
-echo "Type 0 to unmount a drive"
+printf "\nunmount USB drives\n\n"
 
-read var
-
+read -p "Type 0 to unmount a drive (any other to mount): " var
 diskutil list
-
-echo
-echo "Type in the name of the drive you want to mount/unmount"
-read usb
-echo
+read -p "Enter the name of the drive you want to mount/unmount: " usb
 
 if [ "$var" == "0" ]; then
-
-diskutil unmount "$usb"
-#diskutil unmount /dev/disk4s1
-
+  diskutil unmount $usb
 else
-
-diskutil mount "$usb"
-
+  diskutil mount $usb
 fi
-
-#df
-#if [ "/Volumes/$usb" ]; then

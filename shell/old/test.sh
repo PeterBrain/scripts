@@ -1,5 +1,11 @@
 #!/bin/sh
 
+#while (true)
+#do
+#    tput bel
+#done
+
+
 NC='\033[0m' # no color
 black='\033[0;30m'
 red='\033[0;31m'
