@@ -4,7 +4,6 @@
 [![GitHub forks](https://img.shields.io/github/forks/peterbrain/scripts.svg?style=social&label=Fork)]()
 
 [![GitHub author](https://img.shields.io/badge/Author-PeterBrain-3BCDD6.svg)](http://peterbrain.github.io)
-[![GitHub author](https://img.shields.io/badge/language-Batch | Shell | Visual Basic-000000.svg)]()
 
 # Scripts
 This is a collection of all my shell and batch scripts.
