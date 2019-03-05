@@ -1,4 +1,4 @@
 #!/bin/sh
 
-cd /Users/PeterBrain/Desktop/evonHOME
+cd ~/Desktop/evonHOME
 node System/plc.js
