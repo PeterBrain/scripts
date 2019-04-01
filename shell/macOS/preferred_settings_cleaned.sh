@@ -494,7 +494,7 @@ function finder_column_view() {
 }
 
 function avoid_DS_Store() {
-    cecho "Avoid creation of .DS_Store files on network volumes" $yellow
+    cecho "Avoid creation and reading of .DS_Store files on network volumes" $yellow
     defaults write com.apple.desktopservices DSDontWriteNetworkStores -bool true
 }
 
