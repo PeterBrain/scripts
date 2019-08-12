@@ -1,14 +1,33 @@
 #!/bin/bash
 
+# backup script for magento including database (.my.cnf for user and password settings)
+#
+# ./backup_www.sh <domain.tld> <mode: "db", "dir", "full"> <database_name> <exclude_folder_path>
+#
+# how to use (cronjob)
+# @weekly /bin/bash /path/to/script/backup_www.sh ...
+
 DOMAIN=$1
-DATABASE=$2
-DB_ONLY=$3
+MODE=$2
+DATABASE=$3
 EXCLUDE_DIR=$4
 ROOT_DIR="/var/www/${DOMAIN}"
-DATE=$(date '+%Y_%m_%d')
+DATE=$(date '+%Y-%m-%d_%H-%M-%S')
 
-mysqldump --defaults-group-suffix=${DOMAIN} ${DATABASE} | gzip > ${ROOT_DIR}/backup/${DOMAIN}_${DATE}_${DATABASE}.sql.gz
+if ([ -z "${MODE}" ] || [ "${MODE}" == "full" ] || [ "${MODE}" == "db" ]) && [ -n "${DATABASE}" ]; then
+  echo "\nBacking up Database\n"
+  mysqldump --defaults-group-suffix=${DOMAIN} ${DATABASE} | gzip > ${ROOT_DIR}/backup/${DOMAIN}_${DATE}_${DATABASE}.sql.gz
 
-if [ "${DB_ONLY}" != "true" ]; then
+  # clean db_logs - implement in magento_bin.sh
+fi
+
+if [ -z "${MODE}" ] || [ "${MODE}" == "full" ] || [ "${MODE}" == "dir" ]; then
+  echo "\nClearing cache\n"
+  ./magento_bin.sh ${DOMAIN} cache > /dev/null
+
+  echo "\nBacking up Files\n"
   tar $(if [ ! -z "${EXCLUDE_DIR}" ]; then echo --exclude=${ROOT_DIR}/web/${EXCLUDE_DIR}; fi) -zcf ${ROOT_DIR}/backup/${DOMAIN}_${DATE}.tar.gz ${ROOT_DIR}/web
+
+  echo "\nCleaning log files\n"
+  ./magento_bin.sh ${DOMAIN} log
 fi
