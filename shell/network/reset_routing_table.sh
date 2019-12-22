@@ -1,7 +1,9 @@
 #!/bin/sh
 ## reset routing table on macOS
 
-sudo killall -HUP mDNSResponder # flush dns
+# flush dns
+sudo dscacheutil -flushcache
+sudo killall -HUP mDNSResponder
 
 #netstat -r ## display routing table
 
