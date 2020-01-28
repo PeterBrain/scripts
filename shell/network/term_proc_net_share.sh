@@ -2,6 +2,7 @@
 
 clear
 ls -l /Volumes/
+#tree /tmp/share/
 
 echo
 read -p "Type in the drive you want to disconnect: " share
