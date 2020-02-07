@@ -7,6 +7,10 @@ function response() {
     fi
 }
 
+decode64() { ## decode base64 encoded string
+  echo "$1" | base64 --decode # or -d
+}
+
 res=(
     "cd Desktop"
     "mkdir test"

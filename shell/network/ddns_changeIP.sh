@@ -5,14 +5,14 @@
 ## Reference: https://www.changeip.com/accounts/knowledgebase.php?action=displayarticle&id=34
 ## Script:    https://www.changeip.com/accounts/downloads.php
 ##
-## Use in crontab (every 5 min): */5 *  * * * /path/to/ddns_changeIP.sh "<host>" "<username (base64 encoded)>" "<pass (base64 encoded)>"
+## Use in crontab (every 5 min): */5 *  * * * /path/to/ddns_changeIP.sh "<host>"
 ##
-## Base64 encoding is used to store credentials other than in plain text. Anybody with a basic understanding, is capable of decoding the string. But it is still better than plain text.
+## Basic Authentication Credentials should be provided via .netrc file like this:
 ##
-
-decode64() { ## decode base64 encoded string
-  echo "$1" | base64 --decode # or -d
-}
+## machine <fqdn>
+## login <user>
+## password <password>
+##
 
 datetime() { ## date + time with specific format
   date +"%Y-%m-%d %H:%M:%S"
@@ -20,21 +20,15 @@ datetime() { ## date + time with specific format
 
 DIR="/var/log/cron/" ## log and temp file directory
 HOST="$1"
-USER="$2"
-PASS="$3"
-USER_decoded=$(decode64 "$2")
-PASS_decoded=$(decode64 "$3")
-AUTHORIZATION_HEADER=$(echo -n ${USER_decoded}:${PASS_decoded} | base64)
 
 if [ ! -d "${DIR}" ] ## no directory; e.g. first run
 then
   mkdir "${DIR}"
   touch "${DIR}ip.tmp"
+  touch "${DIR}changeIP_error.log"
+  touch "${DIR}changeIP_success.log"
 fi
 
-#UPDATE_DNS_BASIC_AUTH="https://${USER_decoded}:${PASS_decoded}@nic.changeip.com/nic/update?&hostname=${HOST}"
-#UPDATE_DNS="https://nic.changeip.com/nic/update?u=${USER}&p=${PASS}&hostname=${HOST}" #&ip=$IP&set=$SET&offline=$OFFLINE
-UPDATE_DNS="https://nic.changeip.com/nic/update?hostname=${HOST}"
 PUB_IP=$(curl --silent "http://dyn.value-domain.com/cgi-bin/dyn.fcg?ip")
 LAST_IP=$(cat "${DIR}ip.tmp")
 
@@ -42,12 +36,20 @@ if [ "${PUB_IP}" = "${LAST_IP}" ] ## ip changed?
 then
   exit 0 ## nothing changed; exit
 else
-  RESPONSE=$(curl -o /dev/null --silent --head --write-out '%{http_code}\n' -H "Authorization:Basic ${AUTHORIZATION_HEADER}" "${UPDATE_DNS}") ## update dns
+  RESPONSE=$( \
+  curl \
+    --netrc \
+    --write-out '%{http_code}' \
+    --silent \
+    --output /dev/null \
+    --head "https://nic.changeip.com/nic/update?hostname=${HOST}" \
+  )
+
   if [ "${RESPONSE}" != 200 ] ## everything else than 200 is bad? or 2xx?
   then
-    echo "$(datetime) Update failed: Error ${RESPONSE} - HOST:${HOST} USER:${USER} PASS:${PASS}" >> "${DIR}changeIP_error.log"
+    echo "$(datetime) Update failed: Error ${RESPONSE} - HOST:${HOST}" >> "${DIR}changeIP_error.log"
   else
-    #echo "$(datetime) Update success: Code $RESPONSE - HOST:$HOST USER:$USER" >> "${DIR}changeIP_success.log"
+    echo "$(datetime) Update successful: Code ${RESPONSE} - HOST:${HOST}" >> "${DIR}changeIP_success.log"
     echo "${PUB_IP}" > "${DIR}ip.tmp" ## store current ip in temp file
   fi
 fi
