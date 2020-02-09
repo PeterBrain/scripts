@@ -1,4 +1,4 @@
-#!/bin/sh
+#!/bin/bash
 
 username="guest"
 hostname="10.0.0.10"

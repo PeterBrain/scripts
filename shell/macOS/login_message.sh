@@ -1,4 +1,4 @@
-#!/bin/sh
+#!/bin/bash
 
 check=`sudo defaults read /Library/Preferences/com.apple.loginwindow LoginwindowText`
 

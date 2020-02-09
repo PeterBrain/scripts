@@ -1,3 +1,3 @@
-#!/bin/sh
+#!/bin/bash
 
 umount -A -t smbfs

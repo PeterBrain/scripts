@@ -1,4 +1,4 @@
-#!/bin/sh
+#!/bin/bash
 
 ifconfig en0 | awk '/ether/{print $2}' > .reset_mac_address_en0
 ifconfig en1 | awk '/ether/{print $2}' > .reset_mac_address_en1

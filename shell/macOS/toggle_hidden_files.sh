@@ -1,4 +1,4 @@
-#!/bin/sh
+#!/bin/bash
 
 status=`defaults read com.apple.finder AppleShowAllFiles`
 

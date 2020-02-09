@@ -1,4 +1,4 @@
-#!/bin/sh
+#!/bin/bash
 
 en0=`ipconfig getifaddr en0`
 en1=`ipconfig getifaddr en1`

@@ -1,4 +1,4 @@
-#!/bin/sh
+#!/bin/bash
 
 ## this script will enable TouchID for certain commands in terminal and actions (e.g. Finder)
 
