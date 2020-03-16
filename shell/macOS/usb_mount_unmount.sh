@@ -1,4 +1,4 @@
-#!/bin/sh
+#!/bin/bash
 
 printf "\nunmount USB drives\n\n"
 

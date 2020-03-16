@@ -1,4 +1,4 @@
-#!/bin/sh
+#!/bin/bash
 
 sudo nvram SystemAudioVolume=%01
 #80

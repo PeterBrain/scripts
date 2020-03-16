@@ -1,4 +1,4 @@
-#!/bin/sh
+#!/bin/bash
 
 printf "\nCompile C files\n\n"
 read -p "Path to C file: " FILE

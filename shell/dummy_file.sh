@@ -1,4 +1,4 @@
-#!/bin/sh
+#!/bin/bash
 
 printf "\nMake a dummy file with one or several bytes (b), kilobytes (k), megabytes (m), gigabytes (g)\n"
 

@@ -1,4 +1,5 @@
-#!/bin/sh
+#!/bin/bash
+
 ## reset routing table on macOS
 
 # flush dns

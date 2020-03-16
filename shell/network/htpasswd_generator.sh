@@ -1,4 +1,4 @@
-#!/bin/sh
+#!/bin/bash
 
 echo "\nPlease specify a username:"
 read username

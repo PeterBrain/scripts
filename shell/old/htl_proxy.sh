@@ -1,4 +1,4 @@
-#!/bin/sh
+#!/bin/bash
 
 printf "Change proxy setting for work\n\n"
 

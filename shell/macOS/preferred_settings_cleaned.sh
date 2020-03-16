@@ -1,4 +1,5 @@
-#!/bin/sh
+#!/bin/bash
+
 #exec > /dev/null 2>&1
 
 #———— Script settings

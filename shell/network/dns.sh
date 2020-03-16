@@ -1,4 +1,4 @@
-#!/bin/sh
+#!/bin/bash
 
 dns_status=`networksetup -getdnsservers Wi-Fi`
 

@@ -1,10 +1,14 @@
-#!/bin/sh
+#!/bin/bash
 
 function response() {
     read -r response
     if [[ $response =~ ^([yY][eE][sS]|[yY])$ ]]; then
     ${1}
     fi
+}
+
+decode64() { ## decode base64 encoded string
+  echo "$1" | base64 --decode # or -d
 }
 
 res=(
