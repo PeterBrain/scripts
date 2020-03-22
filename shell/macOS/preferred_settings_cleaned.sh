@@ -23,8 +23,9 @@ function cecho() {
         *) color=$2;;
     esac
 
-    #echo "${2}${1}${NC}"
-    echo "${color}${1}${NC}"
+    #echo -e "${2}${1}${NC}"
+    echo -e "${color}${1}${NC}"
+
     return
 }
 
@@ -40,7 +41,7 @@ function response() {
 #———— Title
 
 echo
-cecho "— Mac(Book) preferred configuration —" $magenta
+cecho "— macOS preferred configuration —" $magenta
 echo
 cecho "#####################################" $white
 cecho "#                                   #" $white
@@ -206,41 +207,46 @@ function hide_menu_extra() {
 
 function indexing() {
     cecho "Change indexing order and disable some search results in Spotlight" $1
-# Yosemite-specific search results (remove them if your are using OS X 10.9 or older):
-#   MENU_DEFINITION
-#   MENU_CONVERSION
-#   MENU_EXPRESSION
-#   MENU_SPOTLIGHT_SUGGESTIONS (send search queries to Apple)
-#   MENU_WEBSEARCH             (send search queries to Apple)
-#   MENU_OTHER
-    #defaults write com.apple.spotlight orderedItems -array \
-'{"enabled" = 1;"name" = "APPLICATIONS";}' \
-'{"enabled" = 1;"name" = "SYSTEM_PREFS";}' \
-'{"enabled" = 1;"name" = "DIRECTORIES";}' \
-'{"enabled" = 1;"name" = "PDF";}' \
-'{"enabled" = 1;"name" = "FONTS";}' \
-'{"enabled" = 0;"name" = "DOCUMENTS";}' \
-'{"enabled" = 0;"name" = "MESSAGES";}' \
-'{"enabled" = 0;"name" = "CONTACT";}' \
-'{"enabled" = 0;"name" = "EVENT_TODO";}' \
-'{"enabled" = 0;"name" = "IMAGES";}' \
-'{"enabled" = 0;"name" = "BOOKMARKS";}' \
-'{"enabled" = 0;"name" = "MUSIC";}' \
-'{"enabled" = 0;"name" = "MOVIES";}' \
-'{"enabled" = 0;"name" = "PRESENTATIONS";}' \
-'{"enabled" = 0;"name" = "SPREADSHEETS";}' \
-'{"enabled" = 0;"name" = "SOURCE";}' \
-'{"enabled" = 0;"name" = "MENU_DEFINITION";}' \
-'{"enabled" = 0;"name" = "MENU_OTHER";}' \
-'{"enabled" = 0;"name" = "MENU_CONVERSION";}' \
-'{"enabled" = 0;"name" = "MENU_EXPRESSION";}' \
-'{"enabled" = 0;"name" = "MENU_WEBSEARCH";}' \
-'{"enabled" = 0;"name" = "MENU_SPOTLIGHT_SUGGESTIONS";}'
-# Load new settings before rebuilding the index
+
+    # Yosemite-specific search results (remove them if your are using OS X 10.9 or older):
+    #   MENU_DEFINITION
+    #   MENU_CONVERSION
+    #   MENU_EXPRESSION
+    #   MENU_SPOTLIGHT_SUGGESTIONS (send search queries to Apple)
+    #   MENU_WEBSEARCH             (send search queries to Apple)
+    #   MENU_OTHER
+
+    defaults write com.apple.spotlight orderedItems -array \
+        '{"enabled" = 1;"name" = "APPLICATIONS";}' \
+        '{"enabled" = 1;"name" = "SYSTEM_PREFS";}' \
+        '{"enabled" = 1;"name" = "DIRECTORIES";}' \
+        '{"enabled" = 1;"name" = "PDF";}' \
+        '{"enabled" = 1;"name" = "FONTS";}' \
+        '{"enabled" = 0;"name" = "DOCUMENTS";}' \
+        '{"enabled" = 0;"name" = "MESSAGES";}' \
+        '{"enabled" = 0;"name" = "CONTACT";}' \
+        '{"enabled" = 0;"name" = "EVENT_TODO";}' \
+        '{"enabled" = 0;"name" = "IMAGES";}' \
+        '{"enabled" = 0;"name" = "BOOKMARKS";}' \
+        '{"enabled" = 0;"name" = "MUSIC";}' \
+        '{"enabled" = 0;"name" = "MOVIES";}' \
+        '{"enabled" = 0;"name" = "PRESENTATIONS";}' \
+        '{"enabled" = 0;"name" = "SPREADSHEETS";}' \
+        '{"enabled" = 0;"name" = "SOURCE";}' \
+        '{"enabled" = 0;"name" = "MENU_DEFINITION";}' \
+        '{"enabled" = 0;"name" = "MENU_OTHER";}' \
+        '{"enabled" = 0;"name" = "MENU_CONVERSION";}' \
+        '{"enabled" = 0;"name" = "MENU_EXPRESSION";}' \
+        '{"enabled" = 0;"name" = "MENU_WEBSEARCH";}' \
+        '{"enabled" = 0;"name" = "MENU_SPOTLIGHT_SUGGESTIONS";}'
+
+    # Load new settings before rebuilding the index
     #killall mds > /dev/null 2>&1
-# Make sure indexing is enabled for the main volume
+
+    # Make sure indexing is enabled for the main volume
     #sudo mdutil -i on / > /dev/null
-# Rebuild the index from scratch
+
+    # Rebuild the index from scratch
     #sudo mdutil -E / > /dev/null
 }
 
@@ -727,9 +733,9 @@ echo "# General Power          #"
 echo "##########################"
 echo
 
-hibernation quest
+#hibernation quest
 #rm_sleepFile quest
-sms quest
+#sms quest
 #system_resume false
 #menu_tansparency false
 #speed_wakeup false
@@ -769,7 +775,7 @@ echo "##########################"
 echo
 
 #wipe_dock false
-icon_size_dock true
+#icon_size_dock true
 #hide_menu_bar false
 #autohide_menu_bar false
 #focus_ring_anim false
@@ -859,5 +865,3 @@ echo
 
 homebrew
 xcode
-
-read
