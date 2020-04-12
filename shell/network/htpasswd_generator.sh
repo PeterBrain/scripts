@@ -1,6 +1,6 @@
-#!/bin/bash
+#!/usr/bin/env bash
 
-echo "\nPlease specify a username:"
-read username
+printf "\nPlease specify a username:"
+read -r username
 
-htpasswd -cB htpasswd_ $username
+htpasswd -cB htpasswd_ "$username"

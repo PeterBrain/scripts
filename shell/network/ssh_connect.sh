@@ -1,4 +1,4 @@
-#!/bin/bash
+#!/usr/bin/env bash
 
 server=( \
   "username|password@server1.com" \
@@ -20,19 +20,19 @@ PS3="Pick a server (or ctrl-c to quit): "
 select item in "${server[@]}"
 do
   clear
-  echo "You are connecting to $item"
+  echo "You are connecting to ${item}"
   PS3="Choose connection type (or ctrl-c to quit): "
 
   select type in "${connection_type[@]}"
   do
-    read -p "Enter additional $type arguments \(or just press enter for none\): " args
-    case "$type" in
-      ssh ) ssh $args $item ;;
-      sftp ) sftp $args $item ;;
-      ftp ) ftp $args $item ;;
-      rsh ) rsh $args $item ;;
-      telnet ) telnet $args $item ;;
-      rlogin ) rlogin $args $item ;;
+    read -rp "Enter additional ${type} arguments \(or just press enter for none\): " args
+    case "${type}" in
+      ssh ) ssh "${args}" '${item}' ;; # unescaped will get expanded
+      sftp ) sftp "${args}" "${item}" ;;
+      ftp ) ftp "${args}" "${item}" ;;
+      rsh ) rsh "${args}" "${item}" ;;
+      telnet ) telnet "${args}" "${item}" ;;
+      rlogin ) rlogin "${args}" "${item}" ;;
       quit ) break ;;
       "" ) please select one of the above or press ctrl-c ;;
     esac
