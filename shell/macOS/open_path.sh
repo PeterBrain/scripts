@@ -1,4 +1,4 @@
-#!/bin/bash
+#!/usr/bin/env bash
 
 clear
 printf "\nOpen a predefined path\n\n"
@@ -21,7 +21,7 @@ directories=( \
 
 select directory in "${directories[@]}"
 do
-  cd "$directory"
+  cd "$directory" || exit
   open .
   exit
 done

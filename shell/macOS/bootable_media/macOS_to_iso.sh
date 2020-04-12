@@ -1,29 +1,24 @@
-#!/bin/bash
+#!/usr/bin/env bash
 
 echo
 echo "Which OS do you like to convert to an iso file (M - Mavericks, Y - Yosemite, E - El Capitan, S - Sierra (currently not supportet)"
 echo
 
-read os
+read -r os
 
 os_name=("Mavericks" "Yosemite" "El\ Capitan")
 os_version=(10.9 10.10 10.11)
 
 if [ -z "$os" ]; then
     exit
-
 elif [ "$os" == "M" ]; then
     index=0
-
 elif [ "$os" == "Y" ]; then
     index=1
-
 elif [ "$os" == "E" ]; then
     index=2
-
 elif [ "$os" == "S" ]; then
     index=3
-
 else
     echo "There is no OS named $os"
 fi

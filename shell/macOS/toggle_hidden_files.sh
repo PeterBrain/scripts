@@ -1,6 +1,6 @@
-#!/bin/bash
+#!/usr/bin/env bash
 
-status=`defaults read com.apple.finder AppleShowAllFiles`
+status="$(defaults read com.apple.finder AppleShowAllFiles)"
 
 if [ $status == YES ]; then
     defaults write com.apple.finder AppleShowAllFiles NO
