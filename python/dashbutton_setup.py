@@ -3,13 +3,11 @@ import re
 import sys
 
 # Initial work from: https://mpetroff.net/2016/07/new-amazon-dash-button-teardown-jk29lp/
-
 # python dashbutton_setup.py "SSID" "Password"
 
 h = requests.Session()
 
 BASE_URL = "http://192.168.0.1"
-
 
 def wait_for_device():
     print("* Long press the dash button until LED light blinks in blue")
@@ -43,8 +41,9 @@ def wait_for_device():
 
 def configure_wifi(ssid, password):
     print('* Configure Dash button to connect to "%s"' % ssid)
+
     # is the ssid in range ?
-    """r = h.get(BASE_URL, headers={"Content-Type": "application/json"}, timeout=5)
+    '''r = h.get(BASE_URL, headers={"Content-Type": "application/json"}, timeout=5)
     amzn_networks = r.json()["amzn_networks"]
     found = False
     for amzn_network in amzn_networks:
@@ -53,7 +52,8 @@ def configure_wifi(ssid, password):
             break
     if not found:
         print("- SSID %s is not discoverable by Dash button" % ssid)
-        return"""
+        return'''
+
     print("%s/?amzn_ssid=%s&amzn_pw=%s" % (BASE_URL, ssid, password))
     r = h.get("%s/?amzn_ssid=%s&amzn_pw=%s" % (BASE_URL, ssid, password), timeout=5)
     if r.status_code == 200:
