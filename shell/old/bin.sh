@@ -1,35 +1,22 @@
-#!/bin/bash
-
-function response() {
-    read -r response
-    if [[ $response =~ ^([yY][eE][sS]|[yY])$ ]]; then
-    ${1}
-    fi
-}
+#!/usr/bin/env bash
 
 decode64() { ## decode base64 encoded string
   echo "$1" | base64 --decode # or -d
 }
 
-res=(
-    "cd Desktop"
-    "mkdir test"
-)
-
-response "echo ${res[*]}"
-read
+read -r
 
 
-check=`sudo defaults read /Library/Preferences/com.apple.iokit.AmbientLightSensor "Backlight 1"`
-check_3=`sudo kextload /System/Library/Extensions/AppleBacklight.kext`
-check_all=`sudo defaults read /Library/Preferences/com.apple.iokit.AmbientLightSensor`
+check="$(sudo defaults read /Library/Preferences/com.apple.iokit.AmbientLightSensor "Backlight 1")"
+check_3="$(sudo kextload /System/Library/Extensions/AppleBacklight.kext)"
+check_all="$(sudo defaults read /Library/Preferences/com.apple.iokit.AmbientLightSensor)"
 
-echo $check_all
-echo $check_3
+echo "$check_all"
+echo "$check_3"
 
 #sudo defaults write /Library/Preferences/com.apple.iokit.AmbientLightSensor "Keyboard Muted"
 
-read
+read -r
 
 
 # sudo rm -rf ~/Documents/Adobe
@@ -49,27 +36,26 @@ read
 # sudo rm -rf ~/Library/Preferences/Macromedia
 # sudo rm -rf ~/Library/Saved\ Application\ State/com.{a,A}dobe*
 
-read
+read -r
 
 python -m SimpleHTTPServer 8000
 
-read
+read -r
 
-#while (true)
-#do
-#    tput bel
-#done
+while (true); do
+    tput bel
+done
 
-read
+read -r
 
-case `uname` in
+case $(uname) in
 	Linux) echo "Hello Linux user" ;;
 	Darwin) echo "Hello macOS user" ;;
     FreeBSD|OpenBSD) echo "Hello FreeBSD or OpenBSD user" ;;
 	*) ;;
 esac
 
-read
+read -r
 
 NC='\033[0m' # no color
 black='\033[0;30m'
@@ -94,25 +80,43 @@ function cecho() {
 
 function response() {
     read -r response
-    if [[ $response =~ ^([yY][eE][sS]|[yY][eE]|[yY])$ ]]; then
-        ${1}
+    if [[ "$response" =~ ^([yY][eE][sS]|[yY][eE]|[yY])$ ]]; then
+        "${1}"
     fi
 }
 
 function test1() {
-    cecho "Enabling Debug Menus 1" $1
+    cecho "Enabling Debug Menus 1" "$1"
 }
 
 function test2() {
-    cecho "Enabling Debug Menus 2" $1
+    cecho "Enabling Debug Menus 2" "$1"
 }
 
 function test3() {
-    cecho "Enabling Debug Menus 3" $1
+    cecho "Enabling Debug Menus 3" "$1"
 }
 
 test1 false
 test2 true
 test3
 
-read
+read -r
+
+M2_EXCLUDE=(./web/pub/{media,static} ./web/var/{cache,di})
+VERSION=m2
+echo "${M2_EXCLUDE[*]}"
+echo "$(if [ "${VERSION}" == "m2" ]; then ${M2_EXCLUDE[*]}; fi)"
+echo "$(if [ "${VERSION}" == "m2" ]; then for exclude in "${M2_EXCLUDE[@]}"; do echo "--exclude=${exclude} \ "; done; fi)"
+echo "$(if [ "${VERSION}" == "m2" ]; then echo "${M2_EXCLUDE[@]/#/--exclude=}"; fi)"
+
+read -r
+
+res=(
+    "cd Desktop"
+    "mkdir test"
+)
+
+response "echo ${res[*]}"
+
+read -r

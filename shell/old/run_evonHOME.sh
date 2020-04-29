@@ -1,4 +1,4 @@
-#!/bin/bash
+#!/usr/bin/env bash
 
-cd ~/Desktop/evonHOME
+cd ~/Desktop/evonHOME || exit
 node System/plc.js

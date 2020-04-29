@@ -1,6 +1,6 @@
-#!/bin/bash
+#!/usr/bin/env bash
 
-dns_status=`networksetup -getdnsservers Wi-Fi`
+dns_status="$(networksetup -getdnsservers Wi-Fi)"
 
 if [ "$dns_status" != "There aren't any DNS Servers set on Wi-Fi." ]
 then

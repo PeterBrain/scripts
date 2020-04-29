@@ -1,4 +1,4 @@
-#!/bin/bash
+#!/usr/bin/env bash
 
 printf "Change proxy setting for work\n\n"
 
@@ -9,7 +9,7 @@ networksetup -setsecurewebproxy Ethernet 172.16.1.64 3128
 #networksetup -getwebproxy Ethernet
 #networksetup -getsecurewebproxy Ethernet
 
-read -p "Press enter to close this terminal and revert proxy settings"
+read -rp "Press enter to close this terminal and revert proxy settings"
 
 networksetup -setwebproxy Ethernet off
 networksetup -setsecurewebproxy Ethernet off

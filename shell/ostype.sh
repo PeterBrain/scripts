@@ -1,4 +1,4 @@
-#!/bin/bash
+#!/usr/bin/env bash
 
 ## Version 1 with if
 if [[ "$OSTYPE" == "darwin"* ]]; then

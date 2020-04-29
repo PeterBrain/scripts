@@ -1,14 +1,14 @@
-#!/bin/bash
+#!/usr/bin/env bash
 
 printf "\nCompile C files\n\n"
-read -p "Path to C file: " FILE
-read -p "Name the output file: " NAME
+read -rp "Path to C file: " FILE
+read -rp "Name the output file: " NAME
 
 FILENAME=${FILE##*/}
 FILEPATH=${FILE%/*}
 NOEXT=${FILENAME%\.*}
 EXT=${FILE##*.}
 
-cd "$FILEPATH"
+cd "${FILEPATH}" || exit
 
-gcc -o "$NAME" "$FILE" -framework IOKit -framework ApplicationServices -framework CoreFoundation
+gcc -o "${NAME}" "${FILE}" -framework IOKit -framework ApplicationServices -framework CoreFoundation
