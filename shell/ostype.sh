@@ -34,3 +34,10 @@ case "$OSTYPE" in
     echo "Unknown Operating system: $OSTYPE"
     exit 1
 esac
+
+#case $(uname) in
+#	Linux) echo "Hello Linux user" ;;
+#	Darwin) echo "Hello macOS user" ;;
+#    FreeBSD|OpenBSD) echo "Hello FreeBSD or OpenBSD user" ;;
+#	*) ;;
+#esac

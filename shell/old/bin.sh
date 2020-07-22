@@ -1,11 +1,14 @@
 #!/usr/bin/env bash
 
+## base64 decode
+
 decode64() { ## decode base64 encoded string
   echo "$1" | base64 --decode # or -d
 }
 
 read -r
 
+## macOS specific
 
 check="$(sudo defaults read /Library/Preferences/com.apple.iokit.AmbientLightSensor "Backlight 1")"
 check_3="$(sudo kextload /System/Library/Extensions/AppleBacklight.kext)"
@@ -18,6 +21,7 @@ echo "$check_3"
 
 read -r
 
+## remove all adobe files
 
 # sudo rm -rf ~/Documents/Adobe
 # sudo rm -rf /Library/Application\ Support/Adobe*
@@ -38,9 +42,13 @@ read -r
 
 read -r
 
+## python server
+
 python -m SimpleHTTPServer 8000
 
 read -r
+
+## output sound
 
 while (true); do
     tput bel
@@ -48,14 +56,7 @@ done
 
 read -r
 
-case $(uname) in
-	Linux) echo "Hello Linux user" ;;
-	Darwin) echo "Hello macOS user" ;;
-    FreeBSD|OpenBSD) echo "Hello FreeBSD or OpenBSD user" ;;
-	*) ;;
-esac
-
-read -r
+## color output
 
 NC='\033[0m' # no color
 black='\033[0;30m'
@@ -103,6 +104,8 @@ test3
 
 read -r
 
+## exclude folder
+
 M2_EXCLUDE=(./web/pub/{media,static} ./web/var/{cache,di})
 VERSION=m2
 echo "${M2_EXCLUDE[*]}"
@@ -111,6 +114,8 @@ echo "$(if [ "${VERSION}" == "m2" ]; then for exclude in "${M2_EXCLUDE[@]}"; do 
 echo "$(if [ "${VERSION}" == "m2" ]; then echo "${M2_EXCLUDE[@]/#/--exclude=}"; fi)"
 
 read -r
+
+## list operation
 
 res=(
     "cd Desktop"

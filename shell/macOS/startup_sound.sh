@@ -1,5 +1,6 @@
 #!/usr/bin/env bash
 
-sudo nvram SystemAudioVolume=%01
-#80
+## disable macOS startup sound
+
+sudo nvram SystemAudioVolume=%01 #80
 #sudo nvram -d SystemAudioVolume
