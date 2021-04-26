@@ -54,7 +54,7 @@ if [ -z "${MODE}" ] || [ "${MODE}" == "full" ] || [ "${MODE}" == "dir" ]; then
     --exclude=./"${WEBSPACE_DIR}"/.git \
     --exclude=./"${WEBSPACE_DIR}"/generated \
     --exclude=./"${WEBSPACE_DIR}"/pub/{media,static} \
-    --exclude=./"${WEBSPACE_DIR}"/var/{cache,di,log,report,generation,page_cache,view_preprocessed,composer_home} \
+    --exclude=./"${WEBSPACE_DIR}"/var/{cache,di,log,report,generation,page_cache,view_preprocessed,composer_home,import} \
     -zcf ./"${BACKUP_DIR}"/"${DOMAIN}"_"${DATE}".tar.gz ./"${WEBSPACE_DIR}"
 
   fi
