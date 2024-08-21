@@ -1,4 +1,4 @@
-#!/bin/bash
+#!/usr/bin/env bash
 
 x=0
 y=1
