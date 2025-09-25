@@ -1,9 +1,7 @@
 #!/usr/bin/env bash
 
-#
 # Install VMware tools first
 # Virtual Machine Library -> (Top Menu) Virtual Machine -> Install VMware Tools
-#
 
 cd /Library/Application\ Support/VMware\ Tools/ || exit
 # ./vmware-resolutionSet <width> <height>

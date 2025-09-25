@@ -1,14 +1,13 @@
 #!/usr/bin/env bash
 
-## base64 decode
-
-decode64() { ## decode base64 encoded string
-  echo "$1" | base64 --decode # or -d
+# base64 decode
+decode64() {  # decode base64 encoded string
+  echo "$1" | base64 --decode  # or -d
 }
 
 read -r
 
-## macOS specific
+# macOS specific
 
 check="$(sudo defaults read /Library/Preferences/com.apple.iokit.AmbientLightSensor "Backlight 1")"
 check_3="$(sudo kextload /System/Library/Extensions/AppleBacklight.kext)"
@@ -21,7 +20,7 @@ echo "$check_3"
 
 read -r
 
-## remove all adobe files
+# remove all adobe files
 
 # sudo rm -rf ~/Documents/Adobe
 # sudo rm -rf /Library/Application\ Support/Adobe*
@@ -42,13 +41,13 @@ read -r
 
 read -r
 
-## python server
+# python server
 
 python -m SimpleHTTPServer 8000
 
 read -r
 
-## output sound
+# output sound
 
 while (true); do
     tput bel
@@ -56,9 +55,9 @@ done
 
 read -r
 
-## color output
+# color output
 
-NC='\033[0m' # no color
+NC='\033[0m'  # no color
 black='\033[0;30m'
 red='\033[0;31m'
 green='\033[0;32m'
@@ -69,33 +68,33 @@ cyan='\033[0;36m'
 white='\033[0;37m'
 
 function cecho() {
-    case $2 in
-        "false") color=$red;;
-        "true") color=$green;;
-        *) color=$2;;
-    esac
+  case $2 in
+    "false") color=$red;;
+    "true") color=$green;;
+    *) color=$2;;
+  esac
 
-    echo "${color}${1}${NC}"
-    return
+  echo "${color}${1}${NC}"
+  return
 }
 
 function response() {
-    read -r response
-    if [[ "$response" =~ ^([yY][eE][sS]|[yY][eE]|[yY])$ ]]; then
-        "${1}"
-    fi
+  read -r response
+  if [[ "$response" =~ ^([yY][eE][sS]|[yY][eE]|[yY])$ ]]; then
+    "${1}"
+  fi
 }
 
 function test1() {
-    cecho "Enabling Debug Menus 1" "$1"
+  cecho "Enabling Debug Menus 1" "$1"
 }
 
 function test2() {
-    cecho "Enabling Debug Menus 2" "$1"
+  cecho "Enabling Debug Menus 2" "$1"
 }
 
 function test3() {
-    cecho "Enabling Debug Menus 3" "$1"
+  cecho "Enabling Debug Menus 3" "$1"
 }
 
 test1 false
@@ -104,7 +103,7 @@ test3
 
 read -r
 
-## exclude folder
+# exclude folder
 
 M2_EXCLUDE=(./web/pub/{media,static} ./web/var/{cache,di})
 VERSION=m2
@@ -115,11 +114,11 @@ echo "$(if [ "${VERSION}" == "m2" ]; then echo "${M2_EXCLUDE[@]/#/--exclude=}"; 
 
 read -r
 
-## list operation
+# list operation
 
 res=(
-    "cd Desktop"
-    "mkdir test"
+  "cd Desktop"
+  "mkdir test"
 )
 
 response "echo ${res[*]}"

@@ -1,6 +1,6 @@
 #!/usr/bin/env bash
 
-## Version 1 with if
+# Version 1 - if
 if [[ "$OSTYPE" == "darwin"* ]]; then
   echo "macOS in if"
 elif [[ "$OSTYPE" == "msys"* ]]; then
@@ -13,7 +13,7 @@ elif [[ "$OSTYPE" == "bsd"* ]]; then
   echo "bsd in if"
 fi
 
-## Version 2 with case
+# Version 2 - case
 case "$OSTYPE" in
   darwin*)
     echo "macOS in case"
@@ -36,8 +36,8 @@ case "$OSTYPE" in
 esac
 
 #case $(uname) in
-#	Linux) echo "Hello Linux user" ;;
-#	Darwin) echo "Hello macOS user" ;;
-#    FreeBSD|OpenBSD) echo "Hello FreeBSD or OpenBSD user" ;;
-#	*) ;;
+#  Linux) echo "Hello Linux user" ;;
+#  Darwin) echo "Hello macOS user" ;;
+#  FreeBSD|OpenBSD) echo "Hello FreeBSD or OpenBSD user" ;;
+#  *) ;;
 #esac

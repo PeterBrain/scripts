@@ -27,7 +27,7 @@ do
   do
     read -rp "Enter additional ${type} arguments \(or just press enter for none\): " args
     case "${type}" in
-      ssh ) ssh "${args}" '${item}' ;; # unescaped will get expanded
+      ssh ) ssh "${args}" '${item}' ;;  # unescaped will get expanded
       sftp ) sftp "${args}" "${item}" ;;
       ftp ) ftp "${args}" "${item}" ;;
       rsh ) rsh "${args}" "${item}" ;;
